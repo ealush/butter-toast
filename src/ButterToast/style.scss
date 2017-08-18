@@ -1,0 +1,36 @@
+@import '../base';
+
+.butter-toast-tray {
+    position: absolute;
+    z-index: 999999;
+
+    &[class*="-left"] {
+        left: 25px;
+    }
+
+    &[class*="-right"] {
+        right: 25px;
+    }
+
+    &[class*="-center"] {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &[class*="top-"] {
+        top: 25px;
+    }
+
+    &[class*="bottom-"] {
+        bottom: 25px;
+    }
+
+    .wrapper {
+        position: relative;
+        padding: 10px;
+
+        .toast {
+            position: absolute;
+        }
+    }
+}
