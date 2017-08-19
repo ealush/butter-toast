@@ -26,7 +26,6 @@ class ButterToast extends Component {
         this.onMouseEnter = this.onMouseEnter.bind(this);
         this.onMouseEnter = this.onMouseEnter.bind(this);
         this.onMouseLeave = this.onMouseLeave.bind(this);
-
         this.isBottom = this.config.trayPosition.indexOf('bottom') > -1;
     }
 

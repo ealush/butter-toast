@@ -27,12 +27,10 @@ function raise() {
     const toastTimeout = 5000;
     ButterToast.raise({
         content: (
-            <a href="#!">
-                <div className="my-toast">
-                    {rand(quotes)}
-                    <i className={`fa ${rand(icons)}`}/>
-                </div>
-            </a>
+            <div className="my-toast">
+                {rand(quotes)}
+                <i className={`fa ${rand(icons)}`}/>
+            </div>
         ),
         toastTimeout
     });

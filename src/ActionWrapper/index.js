@@ -10,40 +10,22 @@ class ActionWrapper extends Component {
 
     render() {
         const {style, toast, onMouseEnter, onMouseLeave} = this.props;
-        const onClick = toast.payload.onClick;
         const className = `action-wrapper ${toast.shown ? ' shown' : ''}`;
 
-        let url = toast.payload.url;
-
-        if (!onClick && !url) {
-            return (<span id={toast.toastId}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-                style={style}
-                className={className}
-                ref={(ref) => this._toast = ref}>
-                <span className="toast">
-                    {toast.payload.content}
-                </span>
-            </span>);
+        if (!toast.payload.content) {
+            return null;
         }
 
-        url = url || '#!';
-
-        return (
-            <a id={toast.toastId}
-                href={url}
-                onClick={onClick}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-                style={style}
-                className={className}
-                ref={(ref) => this._toast = ref}>
-                <span className="toast">
-                    {toast.payload.content}
-                </span>
-            </a>
-        );
+        return (<span id={toast.toastId}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            style={style}
+            className={className}
+            ref={(ref) => this._toast = ref}>
+            <span className="toast">
+                {toast.payload.content}
+            </span>
+        </span>);
     }
 }
 
