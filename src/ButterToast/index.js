@@ -7,7 +7,7 @@ import Toast from '../Toast';
 import './style.scss';
 
 class ButterToast extends Component {
-    static pop(payload) {
+    static raise(payload) {
         const toast = new CustomEvent('ButterToast', {
             detail: payload
         });
