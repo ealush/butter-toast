@@ -112,7 +112,7 @@ class ButterToast extends Component {
 
         linear({
             '0': () => {
-                this.setState((prevState) => ({toasts: prevState.toasts.concat([{ toastId, payload, height }])}));
+                this.setState((prevState) => ({toasts: [{ toastId, payload, height }].concat(prevState.toasts)}));
             },
             '50': () => this.showToast(toastId),
             [hideOn.toString()]: () => this.hideToast(toastId),
