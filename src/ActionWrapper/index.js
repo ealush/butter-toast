@@ -1,42 +1,56 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-function ActionWrapper({children, style, toast, onMouseEnter, onMouseLeave}) {
-    const onClick = toast.payload.onClick;
-
-    const className = `action-wrapper ${toast.shown ? ' shown' : ''}`;
-
-    let url = toast.payload.url;
-
-    if (!onClick && !url) {
-        return (<span id={toast.toastId}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            style={style}
-            className={className}>
-            {children}
-        </span>);
+class ActionWrapper extends Component {
+    componentDidMount() {
+        const height = this._toast.clientHeight;
+        this.props.setToastHeight(this.props.toast.toastId, height);
     }
 
-    url = url || '#!';
+    render() {
+        const {style, toast, onMouseEnter, onMouseLeave} = this.props;
+        const onClick = toast.payload.onClick;
+        const className = `action-wrapper ${toast.shown ? ' shown' : ''}`;
 
-    return (
-        <a id={toast.toastId}
-            href={url}
-            onClick={onClick}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            style={style}
-            className={className}>
-            {children}
-        </a>
-    );
+        let url = toast.payload.url;
+
+        if (!onClick && !url) {
+            return (<span id={toast.toastId}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+                style={style}
+                className={className}
+                ref={(ref) => this._toast = ref}>
+                <span className="toast">
+                    {toast.payload.content}
+                </span>
+            </span>);
+        }
+
+        url = url || '#!';
+
+        return (
+            <a id={toast.toastId}
+                href={url}
+                onClick={onClick}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+                style={style}
+                className={className}
+                ref={(ref) => this._toast = ref}>
+                <span className="toast">
+                    {toast.payload.content}
+                </span>
+            </a>
+        );
+    }
 }
 
 ActionWrapper.propTypes = {
-    children: PropTypes.element.isRequired,
+    setToastHeight: PropTypes.func.isRequired,
     toast: PropTypes.object.isRequired,
+    style: PropTypes.object.isRequired,
     onMouseEnter: PropTypes.func.isRequired,
     onMouseLeave: PropTypes.func.isRequired
 };

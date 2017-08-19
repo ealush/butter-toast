@@ -3,7 +3,6 @@ import ActionWrapper from '../ActionWrapper';
 import { generateClassName, generateToastId, translateY } from './helpers';
 import linear from 'linear-debounce';
 import defaults from './defaults';
-import Toast from '../Toast';
 import './style.scss';
 
 class ButterToast extends Component {
@@ -45,12 +44,12 @@ class ButterToast extends Component {
     }
 
     onMouseEnter(e) {
-        const toastId = e.target.id;
+        const toastId = e.currentTarget.id;
         this.hovering = toastId;
     }
 
     onMouseLeave(e) {
-        const toastId = e.target.id;
+        const toastId = e.currentTarget.id;
         if (toastId === this.hovering) {
             this.hovering = null;
         }
@@ -61,7 +60,7 @@ class ButterToast extends Component {
 
         linear({
             '500': () => this.hideToast(toastId),
-            '800': () => this.removeToast(toastId)
+            '1000': () => this.removeToast(toastId)
         })();
     }
 
@@ -126,7 +125,6 @@ class ButterToast extends Component {
         const config = this.config,
             className = generateClassName(config),
             toasts = this.state.toasts,
-            type = config.toastType,
             isBottom = this.isBottom;
 
         let heights = 0;
@@ -139,17 +137,14 @@ class ButterToast extends Component {
                         heights += (height + parseInt(config.toastMargin, 10));
                         const style = translateY(isBottom ? -heights : heights-height);
 
-                        return (<ActionWrapper key={toast.toastId}
-                            onMouseEnter={this.onMouseEnter}
-                            onMouseLeave={this.onMouseLeave}
-                            toast={toast}
-                            style={style}>
-                            <Toast index={index}
+                        return (
+                            <ActionWrapper key={toast.toastId}
                                 setToastHeight={this.setToastHeight}
-                                config={this.config}
-                                type={type}
-                                toast={toast}/>
-                        </ActionWrapper>);
+                                onMouseEnter={this.onMouseEnter}
+                                onMouseLeave={this.onMouseLeave}
+                                toast={toast}
+                                style={style}/>
+                        );
                     })}
                 </div>
             </aside>

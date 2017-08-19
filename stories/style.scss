@@ -1,5 +1,19 @@
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
 body {
     font-family: Arial;
     padding: 0;
     margin: 0;
+}
+
+.my-toast {
+    position: relative;
+    padding-right: 20px;
+
+    .fa {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 }
