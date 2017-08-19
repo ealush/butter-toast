@@ -15,11 +15,5 @@
         vertical-align: middle;
         white-space: nowrap;
         border-radius: 5px;
-        opacity: 0;
-        transition: transform .4s, opacity .3s;
-
-        &.shown {
-            opacity: 1;
-        }
     }
 }

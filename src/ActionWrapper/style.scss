@@ -1,0 +1,11 @@
+.butter-toast-tray .action-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: transform .4s, opacity .3s;
+
+    &.shown {
+        opacity: 1;
+    }
+}

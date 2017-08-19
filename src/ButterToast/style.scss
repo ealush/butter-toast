@@ -5,24 +5,31 @@
     z-index: 999999;
 
     &[class*="-left"] {
-        left: 25px;
+        left: 5px;
     }
 
     &[class*="-right"] {
-        right: 25px;
+        right: 5px;
+
+        .toast {
+            transform: translateX(-100%);
+        }
     }
 
     &[class*="-center"] {
         left: 50%;
-        transform: translateX(-50%);
+
+        .toast {
+            transform: translateX(-50%);
+        }
     }
 
     &[class*="top-"] {
-        top: 25px;
+        top: 5px;
     }
 
     &[class*="bottom-"] {
-        bottom: 25px;
+        bottom: 5px;
     }
 
     .wrapper {

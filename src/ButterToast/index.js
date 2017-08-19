@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ActionWrapper from '../ActionWrapper';
-import { generateClassName, generateToastId } from './helpers';
+import { generateClassName, generateToastId, translateY } from './helpers';
 import linear from 'linear-debounce';
 import defaults from './defaults';
 import Toast from '../Toast';
@@ -18,19 +18,14 @@ class ButterToast extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            toasts: []
-        };
+        this.state = { toasts: [] };
+        this.toasts = {};
 
         this.config = Object.assign({}, defaults, props);
         this.onButterToast = this.onButterToast.bind(this);
+        this.setToastHeight = this.setToastHeight.bind(this);
 
-        this.position = {
-            isBottom: this.config.trayPosition.indexOf('bottom') > -1,
-            isLeft: this.config.trayPosition.indexOf('-left') > -1,
-            isRight: this.config.trayPosition.indexOf('-right') > -1,
-            isCenter: this.config.trayPosition.indexOf('-center') > -1
-        };
+        this.isBottom = this.config.trayPosition.indexOf('bottom') > -1;
     }
 
     componentDidMount() {
@@ -41,11 +36,22 @@ class ButterToast extends Component {
         window.addEventListener('ButterToast', this.onButterToast);
     }
 
+    setToastHeight(toastId, height = 0) {
+        this.toasts[toastId] = this.toasts[toastId] || {};
+        this.toasts[toastId].height = height;
+    }
+
     showToast(toastId) {
         this.setState((prevState) => {
             const nextState = Object.assign({}, prevState);
             const index = nextState.toasts.findIndex((toast) => toast.toastId === toastId);
+
+            if (index === -1) {
+                return prevState;
+            }
+
             nextState.toasts[index].shown = true;
+            nextState.toasts[index].height = this.toasts[toastId].height;
             return nextState;
         });
     }
@@ -55,6 +61,7 @@ class ButterToast extends Component {
             const nextState = Object.assign({}, prevState);
             const index = nextState.toasts.findIndex((toast) => toast.toastId === toastId);
             nextState.toasts[index].shown = false;
+            //delete this.toasts[toastId];
             return nextState;
         });
     }
@@ -67,10 +74,14 @@ class ButterToast extends Component {
 
         const timeout = parseInt(payload.toastTimeout, 10) || parseInt(this.config.toastTimeout, 10),
             hideOn = timeout - 300,
-            toastId = generateToastId();
+            toastId = generateToastId(),
+            height = 0;
+
+        this.setToastHeight(toastId, height);
+
         linear({
             '0': () => {
-                this.setState((prevState) => ({toasts: prevState.toasts.concat([{ toastId, payload }])}));
+                this.setState((prevState) => ({toasts: prevState.toasts.concat([{ toastId, payload, height }])}));
             },
             '50': () => this.showToast(toastId),
             [hideOn.toString()]: () => this.hideToast(toastId),
@@ -81,22 +92,31 @@ class ButterToast extends Component {
     }
 
     render() {
-        const className = generateClassName(this.config),
+        const config = this.config,
+            className = generateClassName(config),
             toasts = this.state.toasts,
-            type = this.config.toastType,
-            position = this.position;
+            type = config.toastType,
+            isBottom = this.isBottom;
+
+        let heights = 0;
 
         return (
             <aside className={className}>
                 <div className="wrapper">
-                    {toasts.map((toast, index) => (
-                        <ActionWrapper key={toast.toastId} toast={toast}>
+                    {toasts.map((toast, index) => {
+                        heights += (parseInt(toasts[index].height, 10) + parseInt(config.toastMargin, 10));
+                        const style = translateY(isBottom ? -heights : heights);
+
+                        return (<ActionWrapper key={toast.toastId}
+                            toast={toast}
+                            style={style}>
                             <Toast index={index}
+                                setToastHeight={this.setToastHeight}
                                 config={this.config}
-                                position={position}
                                 type={type}
                                 toast={toast}/>
-                        </ActionWrapper>))}
+                        </ActionWrapper>);
+                    })}
                 </div>
             </aside>
         );

@@ -8,7 +8,6 @@ function raise() {
     window.dispatchEvent(new CustomEvent('ButterToast', {
         detail: {text: 'just wanted to say that I really like your shirt!', toastTimeout}
     }));
-
 }
 
 storiesOf('Toast', module).add('sample toast', () => (
