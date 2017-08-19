@@ -1,5 +1,5 @@
-import slim from './slim';
+import Slim from './Slim';
 
 export default {
-    slim
+    Slim
 };

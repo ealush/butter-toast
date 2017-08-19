@@ -1,20 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import ActionWrapper from '../ActionWrapper';
+import { generateClassName, generateToastId } from './helpers';
 import linear from 'linear-debounce';
 import defaults from './defaults';
 import Toast from '../Toast';
 import './style.scss';
-
-function generateClassName(config) {
-    const nameClass = config.name ? ` butter-toast-${config.name}` : '';
-    return `butter-toast-tray ${config.trayPosition} toast-${config.toastType}${nameClass}`;
-}
-
-function generateToastId() {
-    // not perfect, but collision is very unlikely
-    return Date.now().toString().slice(5, 13) + Math.random().toString().slice(-6);
-}
 
 class ButterToast extends Component {
     static pop(payload) {
@@ -41,11 +31,32 @@ class ButterToast extends Component {
             isRight: this.config.trayPosition.indexOf('-right') > -1,
             isCenter: this.config.trayPosition.indexOf('-center') > -1
         };
-
     }
 
     componentDidMount() {
         window.addEventListener('ButterToast', this.onButterToast);
+    }
+
+    componentWillUnmount() {
+        window.addEventListener('ButterToast', this.onButterToast);
+    }
+
+    showToast(toastId) {
+        this.setState((prevState) => {
+            const nextState = Object.assign({}, prevState);
+            const index = nextState.toasts.findIndex((toast) => toast.toastId === toastId);
+            nextState.toasts[index].shown = true;
+            return nextState;
+        });
+    }
+
+    hideToast(toastId) {
+        this.setState((prevState) => {
+            const nextState = Object.assign({}, prevState);
+            const index = nextState.toasts.findIndex((toast) => toast.toastId === toastId);
+            nextState.toasts[index].shown = false;
+            return nextState;
+        });
     }
 
     onButterToast(e) {
@@ -61,22 +72,8 @@ class ButterToast extends Component {
             '0': () => {
                 this.setState((prevState) => ({toasts: prevState.toasts.concat([{ toastId, payload }])}));
             },
-            '50': () => {
-                this.setState((prevState) => {
-                    const nextState = Object.assign({}, prevState);
-                    const index = nextState.toasts.findIndex((toast) => toast.toastId === toastId);
-                    nextState.toasts[index].shown = true;
-                    return nextState;
-                });
-            },
-            [hideOn.toString()]: () => {
-                this.setState((prevState) => {
-                    const nextState = Object.assign({}, prevState);
-                    const index = nextState.toasts.findIndex((toast) => toast.toastId === toastId);
-                    nextState.toasts[index].shown = false;
-                    return nextState;
-                });
-            },
+            '50': () => this.showToast(toastId),
+            [hideOn.toString()]: () => this.hideToast(toastId),
             [timeout.toString()]: () => {
                 this.setState((prevState) => ({ toasts: prevState.toasts.filter((toast) => toast.toastId !== toastId)}));
             }
