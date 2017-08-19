@@ -3,17 +3,19 @@
 .butter-toast-tray.toast-slim {
     font-size: 12px;
 
+    .action-wrapper {
+        width: 350px;
+    }
+
     .toast {
+        display: inline-block;
         padding: 5px 10px;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
         text-align: center;
         background-color: $md-grey-800;
         color: $md-grey-100;
         box-sizing: border-box;
         vertical-align: middle;
-        white-space: nowrap;
+        max-width: 350px;
         border-radius: 5px;
     }
 }
