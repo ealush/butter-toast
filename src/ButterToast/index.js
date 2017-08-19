@@ -33,7 +33,7 @@ class ButterToast extends Component {
     }
 
     componentWillUnmount() {
-        window.addEventListener('ButterToast', this.onButterToast);
+        window.removeEventListener('ButterToast', this.onButterToast);
     }
 
     setToastHeight(toastId, height = 0) {
@@ -61,7 +61,6 @@ class ButterToast extends Component {
             const nextState = Object.assign({}, prevState);
             const index = nextState.toasts.findIndex((toast) => toast.toastId === toastId);
             nextState.toasts[index].shown = false;
-            //delete this.toasts[toastId];
             return nextState;
         });
     }
@@ -104,8 +103,9 @@ class ButterToast extends Component {
             <aside className={className}>
                 <div className="wrapper">
                     {toasts.map((toast, index) => {
-                        heights += (parseInt(toasts[index].height, 10) + parseInt(config.toastMargin, 10));
-                        const style = translateY(isBottom ? -heights : heights);
+                        const height = parseInt(toasts[index].height, 10);
+                        heights += (height + parseInt(config.toastMargin, 10));
+                        const style = translateY(isBottom ? -heights : heights-height);
 
                         return (<ActionWrapper key={toast.toastId}
                             toast={toast}

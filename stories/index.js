@@ -16,9 +16,40 @@ function raise() {
     }));
 }
 
-storiesOf('Toast', module).add('sample toast', () => (
-    <div>
-        <ButterToast/>
-        <a href="#!" onClick={raise}>Heres a toast to you!</a>
-    </div>
-));
+storiesOf('Toast', module)
+    .add('bottom-right', () => (
+        <div>
+            <ButterToast/>
+            <a href="#!" onClick={raise}>Heres a toast to you!</a>
+        </div>
+    ))
+    .add('bottom-left', () => (
+        <div>
+            <ButterToast trayPosition="bottom-left"/>
+            <a href="#!" onClick={raise}>Heres a toast to you!</a>
+        </div>
+    ))
+    .add('top-right', () => (
+        <div>
+            <ButterToast trayPosition="top-right"/>
+            <a href="#!" onClick={raise}>Heres a toast to you!</a>
+        </div>
+    ))
+    .add('top-left', () => (
+        <div>
+            <ButterToast trayPosition="top-left"/>
+            <a href="#!" onClick={raise}>Heres a toast to you!</a>
+        </div>
+    ))
+    .add('top-center', () => (
+        <div>
+            <ButterToast trayPosition="top-center"/>
+            <a href="#!" onClick={raise}>Heres a toast to you!</a>
+        </div>
+    ))
+    .add('bottom-center', () => (
+        <div>
+            <ButterToast trayPosition="bottom-center"/>
+            <a href="#!" onClick={raise}>Heres a toast to you!</a>
+        </div>
+    ))
