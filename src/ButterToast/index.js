@@ -24,6 +24,9 @@ class ButterToast extends Component {
         this.config = Object.assign({}, defaults, props);
         this.onButterToast = this.onButterToast.bind(this);
         this.setToastHeight = this.setToastHeight.bind(this);
+        this.onMouseEnter = this.onMouseEnter.bind(this);
+        this.onMouseEnter = this.onMouseEnter.bind(this);
+        this.onMouseLeave = this.onMouseLeave.bind(this);
 
         this.isBottom = this.config.trayPosition.indexOf('bottom') > -1;
     }
@@ -39,6 +42,27 @@ class ButterToast extends Component {
     setToastHeight(toastId, height = 0) {
         this.toasts[toastId] = this.toasts[toastId] || {};
         this.toasts[toastId].height = height;
+    }
+
+    onMouseEnter(e) {
+        const toastId = e.target.id;
+        this.hovering = toastId;
+    }
+
+    onMouseLeave(e) {
+        const toastId = e.target.id;
+        if (toastId === this.hovering) {
+            this.hovering = null;
+        }
+
+        if (!this.toasts[toastId].awaitsRemoval) {
+            return;
+        }
+
+        linear({
+            '500': () => this.hideToast(toastId),
+            '800': () => this.removeToast(toastId)
+        })();
     }
 
     showToast(toastId) {
@@ -57,12 +81,22 @@ class ButterToast extends Component {
     }
 
     hideToast(toastId) {
+        if (this.hovering === toastId) {
+            return this.toasts[toastId].awaitsRemoval = true;
+        }
         this.setState((prevState) => {
             const nextState = Object.assign({}, prevState);
             const index = nextState.toasts.findIndex((toast) => toast.toastId === toastId);
             nextState.toasts[index].shown = false;
             return nextState;
         });
+    }
+
+    removeToast(toastId) {
+        if (this.hovering === toastId) {
+            return this.toasts[toastId].awaitsRemoval = true;
+        }
+        this.setState((prevState) => ({ toasts: prevState.toasts.filter((toast) => toast.toastId !== toastId)}));
     }
 
     onButterToast(e) {
@@ -84,9 +118,7 @@ class ButterToast extends Component {
             },
             '50': () => this.showToast(toastId),
             [hideOn.toString()]: () => this.hideToast(toastId),
-            [timeout.toString()]: () => {
-                this.setState((prevState) => ({ toasts: prevState.toasts.filter((toast) => toast.toastId !== toastId)}));
-            }
+            [timeout.toString()]: () => this.removeToast(toastId)
         })();
     }
 
@@ -108,6 +140,8 @@ class ButterToast extends Component {
                         const style = translateY(isBottom ? -heights : heights-height);
 
                         return (<ActionWrapper key={toast.toastId}
+                            onMouseEnter={this.onMouseEnter}
+                            onMouseLeave={this.onMouseLeave}
                             toast={toast}
                             style={style}>
                             <Toast index={index}

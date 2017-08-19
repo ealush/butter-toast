@@ -2,17 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-function ActionWrapper({children, style, toast}) {
-    const {
-        onClick, onMouseEnter, onMouseLeave
-    } = toast.payload;
+function ActionWrapper({children, style, toast, onMouseEnter, onMouseLeave}) {
+    const onClick = toast.payload.onClick;
 
     const className = `action-wrapper ${toast.shown ? ' shown' : ''}`;
 
     let url = toast.payload.url;
 
     if (!onClick && !url) {
-        return (<span onMouseEnter={onMouseEnter}
+        return (<span id={toast.toastId}
+            onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             style={style}
             className={className}>
@@ -23,7 +22,8 @@ function ActionWrapper({children, style, toast}) {
     url = url || '#!';
 
     return (
-        <a href={url}
+        <a id={toast.toastId}
+            href={url}
             onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
@@ -36,7 +36,9 @@ function ActionWrapper({children, style, toast}) {
 
 ActionWrapper.propTypes = {
     children: PropTypes.element.isRequired,
-    toast: PropTypes.object.isRequired
+    toast: PropTypes.object.isRequired,
+    onMouseEnter: PropTypes.func.isRequired,
+    onMouseLeave: PropTypes.func.isRequired
 };
 
 export default ActionWrapper;
