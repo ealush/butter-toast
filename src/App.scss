@@ -1,0 +1,25 @@
+@import './colors.scss';
+
+.App-header {
+    background: $md-amber-100;
+    text-align: center;
+    padding: 25px;
+
+    h2 {
+        margin: 0;
+        color: $md-yellow-900;
+    }
+}
+
+.butter-toast-tray {
+    .toast .content {
+        background-color: $md-grey-800;
+        color: $md-grey-200;
+        font-size: 12px;
+        max-width: 350px;
+        padding: 5px 15px;
+        white-space: nowrap;
+        border-radius: 5px;
+        box-shadow: 0 4px 5px $md-grey-500;
+    }
+}
