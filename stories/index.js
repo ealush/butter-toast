@@ -24,7 +24,7 @@ function rand(arr) {
 }
 
 function raise() {
-    const toastTimeout = 5000000000;
+    const toastTimeout = 5000;
     ButterToast.raise({
         content: (
             <div className="my-toast">
