@@ -10,7 +10,7 @@ function randomQuoute() {
 };
 
 function raise() {
-    const toastTimeout = Math.round(Math.random()*3000);
+    const toastTimeout = Math.round(Math.random()*7000)+3000;
     window.dispatchEvent(new CustomEvent('ButterToast', {
         detail: {text: randomQuoute(), toastTimeout}
     }));
