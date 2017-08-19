@@ -11,16 +11,16 @@
     &[class*="-right"] {
         right: 5px;
 
-        .toast {
-            transform: translateX(-100%);
+        .wrapper {
+            text-align: right;
         }
     }
 
     &[class*="-center"] {
         left: 50%;
 
-        .toast {
-            transform: translateX(-50%);
+        .wrapper {
+            text-align: center;
         }
     }
 
@@ -35,5 +35,9 @@
     .wrapper {
         position: relative;
         padding: 10px;
+
+        .toast {
+            text-align: left;
+        }
     }
 }

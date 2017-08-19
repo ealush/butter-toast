@@ -1,9 +1,9 @@
 import generateClassName from './generate_class_name';
 import generateToastId from './generate_toast_id';
-import translateY from './translate_y';
+import translate from './translate';
 
 export {
     generateClassName,
     generateToastId,
-    translateY
+    translate
 };

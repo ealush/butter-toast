@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ActionWrapper from '../ActionWrapper';
-import { generateClassName, generateToastId, translateY } from './helpers';
+import { generateClassName, generateToastId, translate } from './helpers';
 import linear from 'linear-debounce';
 import defaults from './defaults';
 import './style.scss';
@@ -27,6 +27,8 @@ class ButterToast extends Component {
         this.onMouseEnter = this.onMouseEnter.bind(this);
         this.onMouseLeave = this.onMouseLeave.bind(this);
         this.isBottom = this.config.trayPosition.indexOf('bottom') > -1;
+        this.isRight = this.config.trayPosition.indexOf('-right') > -1;
+        this.isCenter = this.config.trayPosition.indexOf('-center') > -1;
     }
 
     componentDidMount() {
@@ -124,7 +126,9 @@ class ButterToast extends Component {
         const config = this.config,
             className = generateClassName(config),
             toasts = this.state.toasts,
-            isBottom = this.isBottom;
+            isBottom = this.isBottom,
+            isRight = this.isRight,
+            isCenter = this.isCenter;
 
         let heights = 0;
 
@@ -134,7 +138,11 @@ class ButterToast extends Component {
                     {toasts.map((toast, index) => {
                         const height = parseInt(toasts[index].height, 10);
                         heights += (height + parseInt(config.toastMargin, 10));
-                        const style = translateY(isBottom ? -heights : heights-height);
+                        const style = translate({
+                            height: (isBottom ? -heights : heights-height),
+                            isRight,
+                            isCenter
+                        });
 
                         return (
                             <ActionWrapper key={toast.toastId}
