@@ -36,23 +36,55 @@ function raise() {
     });
 }
 
+function raiseRandomTimeout() {
+    const toastTimeout = (Math.round(Math.random()*7000) + 3000);
+    ButterToast.raise({
+        content: (
+            <div className="my-toast">
+                {rand(quotes)}
+                <i className={`fa ${rand(icons)}`}/>
+            </div>
+        ),
+        toastTimeout
+    });
+}
+
+function raiseSticky() {
+    ButterToast.raise({
+        content: (
+            <div className="my-toast">
+                {rand(quotes)}
+                <i className={`fa ${rand(icons)}`}/>
+            </div>
+        ),
+        sticky: true,
+        dismissOnClick: true
+    });
+}
+
+function raiseDismissOnClick() {
+    ButterToast.raise({
+        content: (
+            <div className="my-toast">
+                {rand(quotes)}
+                <i className={`fa ${rand(icons)}`}/>
+            </div>
+        ),
+        dismissOnClick: true
+    });
+}
+
 storiesOf('Toast', module) // eslint-disable-line no-undef
-    .add('bottom-right', () => (
-        <div>
-            <ButterToast/>
-            <a href="#!" onClick={raise}>Raise a toast!</a>
-        </div>
-    ))
     .add('bottom-left', () => (
         <div>
             <ButterToast trayPosition="bottom-left"/>
             <a href="#!" onClick={raise}>Raise a toast!</a>
         </div>
     ))
-    .add('top-right', () => (
+    .add('top-right: Dismiss on Click', () => (
         <div>
             <ButterToast trayPosition="top-right"/>
-            <a href="#!" onClick={raise}>Raise a toast!</a>
+            <a href="#!" onClick={raiseDismissOnClick}>Raise a toast!</a>
         </div>
     ))
     .add('top-left', () => (
@@ -61,15 +93,21 @@ storiesOf('Toast', module) // eslint-disable-line no-undef
             <a href="#!" onClick={raise}>Raise a toast!</a>
         </div>
     ))
-    .add('top-center', () => (
-        <div>
-            <ButterToast trayPosition="top-center"/>
-            <a href="#!" onClick={raise}>Raise a toast!</a>
-        </div>
-    ))
     .add('bottom-center', () => (
         <div>
             <ButterToast trayPosition="bottom-center"/>
             <a href="#!" onClick={raise}>Raise a toast!</a>
+        </div>
+    ))
+    .add('top-center: Sticky', () => (
+        <div>
+            <ButterToast trayPosition="top-center"/>
+            <a href="#!" onClick={raiseSticky}>Sticky Toast!</a>
+        </div>
+    ))
+    .add('bottom-right: Random Timeout', () => (
+        <div>
+            <ButterToast/>
+            <a href="#!" onClick={raiseRandomTimeout}>Raise a toast!</a>
         </div>
     ));
