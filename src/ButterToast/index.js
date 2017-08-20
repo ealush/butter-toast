@@ -24,7 +24,6 @@ class ButterToast extends Component {
         this.onButterToast = this.onButterToast.bind(this);
         this.setToastHeight = this.setToastHeight.bind(this);
         this.onMouseEnter = this.onMouseEnter.bind(this);
-        this.onMouseEnter = this.onMouseEnter.bind(this);
         this.onMouseLeave = this.onMouseLeave.bind(this);
         this.isBottom = this.config.trayPosition.indexOf('bottom') > -1;
         this.isRight = this.config.trayPosition.indexOf('-right') > -1;
