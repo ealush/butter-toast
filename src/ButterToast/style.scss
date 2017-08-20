@@ -1,7 +1,7 @@
 @import '../base';
 
 .butter-toast-tray {
-    position: absolute;
+    position: fixed;
     z-index: 999999;
 
     &[class*="-left"] {
