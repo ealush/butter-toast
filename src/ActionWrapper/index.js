@@ -10,7 +10,7 @@ class ActionWrapper extends Component {
 
     render() {
         const {style, toast, onMouseEnter, onMouseLeave} = this.props;
-        const className = `action-wrapper ${toast.shown ? ' shown' : ''}`;
+        const className = `action-wrapper${toast.shown ? ' shown' : ''}`;
 
         if (!toast.payload.content) {
             return null;
