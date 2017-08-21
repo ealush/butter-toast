@@ -3,6 +3,7 @@
 .butter-toast-tray {
     position: fixed;
     z-index: 999999;
+    height: 0;
 
     &[class*="-left"] {
         left: 5px;

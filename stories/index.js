@@ -1,76 +1,50 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { storiesOf } from '@kadira/storybook';
+import { quotes, icons, images, rand } from './helpers';
 import ButterToast from '../src';
 import './style.scss';
 
-const quotes = [
-    'Wubba-lubba-dub-dub!',
-    'Rikki-Tikki-Tavi, biatch!',
-    "And that's why I always say, \"shum-shum-schlippety-dop!\"",
-    "Sometimes science is more art than science, Morty. Lot of people don't get that.",
-    "Quantum carburetor? Jesus Morty, you can't just add a sci-fi word to a car word and hope it means something. Looks like something's wrong with the micro-verse battery.",
-    "Uncertainty is inherently unsustainable. Eventually, everything either is or isn't.",
-    'Oh, shit!',
-    'How is this a fair trial? Our laywer is a Morty.',
-    'You\'re classified as a hostile entity and Unity doesn\'t wanna talk to you.',
-    'Can somebody just let me out of here? If I die in a cage I lose a bet.',
-    "That's my one-armed man! I'm not driven by avenging my dead family, Morty! That was fake. I-I-I'm driven by finding that McNugget sauce.",
-    "We're on a planet that's purging, Summer. Purging. We lost our car and my gun and we're in a purge."];
-
-const icons = ['fa-arrow-down', 'fa-bath', 'fa-bell-slash', 'fa-mouse-pointer', 'fa-mouse-pointer'];
-
-function rand(arr) {
-    return arr[Math.floor(Math.random()*arr.length)] || arr[0];
-}
-
-function raise() {
-    const toastTimeout = 5000;
-    ButterToast.raise({
+function raise(options = {}) {
+    const defaults = {
         content: (
             <div className="my-toast">
                 {rand(quotes)}
                 <i className={`fa ${rand(icons)}`}/>
             </div>
         ),
-        toastTimeout
-    });
+        toastTimeout: 5000
+    };
+
+    ButterToast.raise(Object.assign({}, defaults, options));
 }
 
 function raiseRandomTimeout() {
-    const toastTimeout = (Math.round(Math.random()*7000) + 3000);
-    ButterToast.raise({
-        content: (
-            <div className="my-toast">
-                {rand(quotes)}
-                <i className={`fa ${rand(icons)}`}/>
-            </div>
-        ),
-        toastTimeout
-    });
+    raise({toastTimeout: (Math.round(Math.random()*7000) + 3000)});
 }
 
 function raiseSticky() {
-    ButterToast.raise({
-        content: (
-            <div className="my-toast">
-                {rand(quotes)}
-                <i className={`fa ${rand(icons)}`}/>
-            </div>
-        ),
+    raise({
         sticky: true,
         dismissOnClick: true
     });
 }
 
 function raiseDismissOnClick() {
-    ButterToast.raise({
-        content: (
-            <div className="my-toast">
-                {rand(quotes)}
-                <i className={`fa ${rand(icons)}`}/>
-            </div>
-        ),
+    raise({
         dismissOnClick: true
+    });
+}
+
+function raiseLarge() {
+    raise({
+        content: (
+            <figure className="toast-large">
+                <div className="image" style={{backgroundImage: `url('${rand(images)}')`}}/>
+                <figcaption>
+                    {rand(quotes)}
+                </figcaption>
+            </figure>
+        )
     });
 }
 
@@ -79,6 +53,12 @@ storiesOf('Toast', module) // eslint-disable-line no-undef
         <div>
             <ButterToast trayPosition="bottom-left"/>
             <a href="#!" onClick={raise}>Raise a toast!</a>
+        </div>
+    ))
+    .add('bottom-right: large', () => (
+        <div>
+            <ButterToast toastType="large" toastMargin="10" trayPosition="bottom-right"/>
+            <a href="#!" onClick={raiseLarge}>Raise a toast!</a>
         </div>
     ))
     .add('top-right: Dismiss on Click', () => (
