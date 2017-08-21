@@ -1,5 +1,5 @@
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
-@import '../src/base.scss';
+@import './colors.scss';
 
 body {
     font-family: Arial;
@@ -81,8 +81,8 @@ body {
 
             figcaption {
                 padding: 10px 30px 10px 10px;
-                line-height: 14px;
-                max-height: 48px;
+                line-height: 12px;
+                max-height: 51px;
                 overflow: hidden;
             }
         }
