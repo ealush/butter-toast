@@ -22,14 +22,21 @@ class ActionWrapper extends Component {
     }
 
     render() {
-        const {style, toast, onMouseEnter, onMouseLeave} = this.props;
-        const className = `action-wrapper${toast.shown ? ' shown' : ''}`;
+        let Content;
+        const {style, toast, onMouseEnter, onMouseLeave, triggerDismiss} = this.props;
+        const className = `action-wrapper${toast.shown ? ' shown' : ''}`,
+            toastId = toast.toastId,
+            dismiss = () => triggerDismiss(toastId, true);
 
         if (!toast.payload.content) {
             return null;
+        } else if (typeof toast.payload.content === 'function') {
+            Content = toast.payload.content;
+        } else {
+            Content = () => toast.payload.content;
         }
 
-        return (<span id={toast.toastId}
+        return (<span id={toastId}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             onClick={this.onClick}
@@ -37,7 +44,7 @@ class ActionWrapper extends Component {
             className={className}
             ref={(ref) => this._toast = ref}>
             <span className="toast">
-                {toast.payload.content}
+                <Content toastId={toastId} dismiss={dismiss}/>
             </span>
         </span>);
     }

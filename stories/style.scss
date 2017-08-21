@@ -5,14 +5,6 @@ body {
     font-family: Arial;
     padding: 0;
     margin: 0;
-
-    .toast {
-        transition: box-shadow .1s;
-
-        &:hover {
-            box-shadow: 0 3px 5px $md-grey-500 !important;
-        }
-    }
 }
 
 .my-toast {
@@ -27,8 +19,28 @@ body {
     }
 }
 
-.butter-toast-tray.toast-large {
+.butter-toast-tray {
     font-size: 12px;
+
+    .toast {
+        display: inline-block;
+        box-sizing: border-box;
+        box-shadow: 0 3px 5px $md-grey-400;
+        transition: box-shadow .1s;
+        overflow: hidden;
+
+        &:hover {
+            box-shadow: 0 3px 5px $md-grey-500 !important;
+        }
+
+        a {
+            color: $md-grey-100;
+            text-decoration: none;
+        }
+    }
+}
+
+.butter-toast-tray.toast-large {
     color: $md-grey-800;
 
     .action-wrapper {
@@ -36,21 +48,29 @@ body {
     }
 
     .toast {
-        display: inline-block;
-        text-align: center;
         background-color: $md-grey-200;
-        box-sizing: border-box;
-        vertical-align: middle;
+        text-align: center;
         height: 75px;
         width: 250px;
         text-align: left;
         border-radius: 3px;
-        box-shadow: 0 3px 5px $md-grey-400;
-        overflow: hidden;
 
         figure {
             padding: 0;
             margin: 0;
+
+            .btn-dismiss {
+                position: absolute;
+                right: 0;
+                top: 0;
+                font-size: 14px;
+                padding: 5px;
+                color: $md-grey-500;
+
+                &:hover {
+                    color: $md-grey-700;
+                }
+            }
 
             .image {
                 float: left;
@@ -60,16 +80,27 @@ body {
             }
 
             figcaption {
-                padding: 10px;
+                padding: 10px 30px 10px 10px;
                 line-height: 14px;
                 max-height: 48px;
                 overflow: hidden;
             }
         }
+    }
+}
 
-        a {
-            color: $md-grey-100;
-            text-decoration: none;
-        }
+.butter-toast-tray.toast-slim {
+
+    .action-wrapper {
+        width: 350px;
+    }
+
+    .toast {
+        background-color: $md-grey-800;
+        color: $md-grey-100;
+        padding: 5px 10px;
+        text-align: center;
+        max-width: 350px;
+        border-radius: 5px;
     }
 }

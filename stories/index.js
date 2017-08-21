@@ -36,16 +36,16 @@ function raiseDismissOnClick() {
 }
 
 function raiseLarge() {
-    raise({
-        content: (
+    const bg = rand(images),
+        text = rand(quotes),
+        content = ({dismiss}) => (
             <figure className="toast-large">
-                <div className="image" style={{backgroundImage: `url('${rand(images)}')`}}/>
-                <figcaption>
-                    {rand(quotes)}
-                </figcaption>
+                <a href="#!" className="btn-dismiss" onClick={dismiss}>&times;</a>
+                <div className="image" style={{backgroundImage: `url('${bg}')`}}/>
+                <figcaption>{text}</figcaption>
             </figure>
-        )
-    });
+        );
+    raise({ content });
 }
 
 storiesOf('Toast', module) // eslint-disable-line no-undef
@@ -55,7 +55,7 @@ storiesOf('Toast', module) // eslint-disable-line no-undef
             <a href="#!" onClick={raise}>Raise a toast!</a>
         </div>
     ))
-    .add('bottom-right: large', () => (
+    .add('bottom-right: large (children as a function)', () => (
         <div>
             <ButterToast toastType="large" toastMargin="10" trayPosition="bottom-right"/>
             <a href="#!" onClick={raiseLarge}>Raise a toast!</a>
