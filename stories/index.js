@@ -1,7 +1,7 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { storiesOf } from '@kadira/storybook';
 import { quotes, icons, images, rand } from './helpers';
-import ButterToast from '../src';
+import ButterToast from '../src/ButterToast';
 import './style.scss';
 
 function raise(options = {}) {
@@ -19,19 +19,21 @@ function raise(options = {}) {
 }
 
 function raiseRandomTimeout() {
-    raise({toastTimeout: (Math.round(Math.random()*7000) + 3000)});
+    raise({toastTimeout: (Math.round(Math.random()*7000) + 3000), name: 'slim t6'});
 }
 
 function raiseSticky() {
     raise({
         sticky: true,
-        dismissOnClick: true
+        dismissOnClick: true,
+        name: 'slim t5'
     });
 }
 
 function raiseDismissOnClick() {
     raise({
-        dismissOnClick: true
+        dismissOnClick: true,
+        name: 'slim t2'
     });
 }
 
@@ -45,49 +47,49 @@ function raiseLarge() {
                 <figcaption>{text}</figcaption>
             </figure>
         );
-    raise({ content });
+    raise({ content, name: 'large' });
 }
 
 storiesOf('Toast', module) // eslint-disable-line no-undef
     .add('bottom-left', () => (
         <div>
-            <ButterToast trayPosition="bottom-left"/>
-            <a href="#!" onClick={raise}>Raise a toast!</a>
+            <ButterToast name="slim t1" trayPosition="bottom-left"/>
+            <a href="#!" onClick={() => raise({name: 'slim t1'})}>Raise a toast!</a>
         </div>
     ))
     .add('bottom-right: large (children as a function)', () => (
         <div>
-            <ButterToast toastType="large" toastMargin="10" trayPosition="bottom-right"/>
+            <ButterToast name="large" toastMargin="10" trayPosition="bottom-right"/>
             <a href="#!" onClick={raiseLarge}>Raise a toast!</a>
         </div>
     ))
     .add('top-right: Dismiss on Click', () => (
         <div>
-            <ButterToast trayPosition="top-right"/>
+            <ButterToast name="slim t2" trayPosition="top-right"/>
             <a href="#!" onClick={raiseDismissOnClick}>Raise a toast!</a>
         </div>
     ))
     .add('top-left', () => (
         <div>
-            <ButterToast trayPosition="top-left"/>
-            <a href="#!" onClick={raise}>Raise a toast!</a>
+            <ButterToast name="slim t3" trayPosition="top-left"/>
+            <a href="#!" onClick={() => raise({name: 'slim t3'})}>Raise a toast!</a>
         </div>
     ))
     .add('bottom-center', () => (
         <div>
-            <ButterToast trayPosition="bottom-center"/>
-            <a href="#!" onClick={raise}>Raise a toast!</a>
+            <ButterToast name="slim t4" trayPosition="bottom-center"/>
+            <a href="#!" onClick={() => raise({name: 'slim t4'})}>Raise a toast!</a>
         </div>
     ))
     .add('top-center: Sticky', () => (
         <div>
-            <ButterToast trayPosition="top-center"/>
+            <ButterToast name="slim t5" trayPosition="top-center"/>
             <a href="#!" onClick={raiseSticky}>Sticky Toast!</a>
         </div>
     ))
     .add('bottom-right: Random Timeout', () => (
         <div>
-            <ButterToast/>
+            <ButterToast name="slim t6" renderInContext={true}/>
             <a href="#!" onClick={raiseRandomTimeout}>Raise a toast!</a>
         </div>
     ));

@@ -22,15 +22,25 @@ body {
 .butter-toast-tray {
     font-size: 12px;
 
+    &.t5 {
+        .toast {
+            cursor: pointer;
+        }
+    }
+
     .toast {
         display: inline-block;
         box-sizing: border-box;
         box-shadow: 0 3px 5px $md-grey-400;
-        transition: box-shadow .1s;
+        transition: box-shadow .3s;
         overflow: hidden;
 
         &:hover {
-            box-shadow: 0 3px 5px $md-grey-500 !important;
+            box-shadow: 0 3px 5px $md-grey-600 !important;
+        }
+
+        .t5 {
+            cursor: pointer;
         }
 
         a {
@@ -40,7 +50,7 @@ body {
     }
 }
 
-.butter-toast-tray.toast-large {
+.butter-toast-tray.butter-toast-large {
     color: $md-grey-800;
 
     .action-wrapper {
@@ -89,7 +99,7 @@ body {
     }
 }
 
-.butter-toast-tray.toast-slim {
+.butter-toast-tray.butter-toast-slim {
 
     .action-wrapper {
         width: 350px;

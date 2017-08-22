@@ -1,6 +1,5 @@
 export default function generateClassName(config) {
-    const nameClass = config.name ? ` butter-toast-${config.name}` : '',
-        type = config.toastType.toLowerCase();
+    const nameClass = config.name ? ` butter-toast-${config.name}` : '';
 
-    return `butter-toast-tray ${config.trayPosition} toast-${type}${nameClass}`;
+    return `butter-toast-tray ${config.trayPosition}${nameClass}`;
 }
