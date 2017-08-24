@@ -21,7 +21,7 @@ Plug & Play toast notification system for react applications.
 
 ![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/screenshot.png)
 
-## What id does not do
+## What it does not do
 * Provdie styling:
     Other than what's actually needed to stick the tray to the corners of the screen and transition the toasts, Butter Toast does not provide any styling whatsoever, understanding that each consumer might expect it to look differently.
 * Provide Toast HTML:
@@ -77,7 +77,7 @@ class MyComponent extends Component {
 To trigger a new toast notification, you need to call the static method `raise` that's on the ButterToast object.
 It accepts an options object with the following options:
 
-* **content** | required | function: React Component. The following props are passed to id:
+* **content** | required | function: React Component. The following props are passed to it:
     * toastId | number
     * dismiss | function | call this function to dismiss the toast
 * **dismissOnClick** | default: false | boolean | if true, attaches a click event listener on the whole toast. clicking the toast will dismiss it.
