@@ -26,6 +26,11 @@ Plug & Play toast notification system for react applications.
     Other than what's actually needed to stick the tray to the corners of the screen and transition the toasts, Butter Toast does not provide any styling whatsoever, understanding that each consumer might expect it to look differently.
 * Provide Toast HTML:
     The only HTML provided with Butter Toast is the markup for the tray itself. The structure of each toast is completely up to the consumer.
+    
+## TODO - prioritized
+* Add theming support for easy styling
+* Prevent remounting if already exists
+* Allow unmounting from DOM on demand
 
 ![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/screenshot1.png)
 
