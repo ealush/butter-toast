@@ -83,7 +83,7 @@ storiesOf('Toast', module) // eslint-disable-line no-undef
     ))
     .add('top-center: Sticky', () => (
         <div>
-            <ButterToast name="slim t5" trayPosition="top-center"/>
+            <ButterToast name="slim t5" theme="cinnamon-sugar" trayPosition="top-center"/>
             <a href="#!" onClick={raiseSticky}>Sticky Toast!</a>
         </div>
     ))

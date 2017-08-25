@@ -21,6 +21,7 @@ class ButterToastTray extends Component {
         this.isBottom = this.config.trayPosition.indexOf('bottom') > -1;
         this.isRight = this.config.trayPosition.indexOf('-right') > -1;
         this.isCenter = this.config.trayPosition.indexOf('-center') > -1;
+        this._isMounted = true;
     }
 
     componentDidMount() {
@@ -28,6 +29,7 @@ class ButterToastTray extends Component {
     }
 
     componentWillUnmount() {
+        this._isMounted = false;
         window.removeEventListener('ButterToast', this.onButterToast);
     }
 
@@ -56,8 +58,8 @@ class ButterToastTray extends Component {
 
     triggerDismiss(toastId, force) {
         linear({
-            '300': () => this.hideToast(toastId, force),
-            '600': () => this.removeToast(toastId, force)
+            '300': () => this._isMounted && this.hideToast(toastId, force),
+            '600': () => this._isMounted && this.removeToast(toastId, force)
         })();
     }
 
@@ -118,9 +120,9 @@ class ButterToastTray extends Component {
             '0': () => {
                 this.setState((prevState) => ({toasts: [{ toastId, payload, height }].concat(prevState.toasts)}));
             },
-            '50': () => this.showToast(toastId),
-            [hideOn.toString()]: () => !sticky && this.hideToast(toastId),
-            [timeout.toString()]: () => !sticky && this.removeToast(toastId)
+            '50': () => this._isMounted && this.showToast(toastId),
+            [hideOn.toString()]: () => this._isMounted && !sticky && this.hideToast(toastId),
+            [timeout.toString()]: () => this._isMounted && !sticky && this.removeToast(toastId)
         })();
     }
 
