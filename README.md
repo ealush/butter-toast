@@ -1,6 +1,8 @@
 ![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/butterbot.png)
 
 # Butter Toast
+[![Greenkeeper badge](https://badges.greenkeeper.io/ealush/butter-toast.svg)](https://greenkeeper.io/)
+
 Plug & Play toast notification system for react applications.
 
 ```npm install butter-toast```
