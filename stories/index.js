@@ -1,5 +1,6 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { storiesOf } from '@kadira/storybook';
+import PropTypes from 'prop-types';
 import { quotes, icons, images, rand } from './helpers';
 import ButterToast from '../src/ButterToast';
 import './style.scss';
@@ -47,6 +48,10 @@ function raiseLarge() {
                 <figcaption>{text}</figcaption>
             </figure>
         );
+
+    content.propTypes = {
+        dismiss: PropTypes.func
+    };
     raise({ content, name: 'large' });
 }
 
