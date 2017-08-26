@@ -9,17 +9,21 @@ Plug & Play toast notification system for react applications.
 
 [Live Demo](ealush.github.io/butter-toast)
 
+![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec1.gif)
+
 ## What does it do:
 * Display your toast notifications on the page
 * Automatically calculate the height of each toast and stack them up.
 * Add transition when each enters or leaves the screen
-* Lets you set the position for the tray (top-left, top-center, top-right, bottom-right, bottom-center, bottom-left).
+* Let you set the position for the tray (top-left, top-center, top-right, bottom-right, bottom-center, bottom-left).
+* Let you create full JSX toasts, have them look anyway you want
 * Allow having multiple-independant trays of toast notifications on the same page. Notifications may appear in one, or all.
 * Set sticky notifications that will stay forever
 * Set notifications that will be dismissed on click
 * Provide an API for dismissing a toast from the outside
 * Set a custom duration for each toast notification
 * Stay if hovered, leave after hover and toast duration end
+* Create the notifications under a different DOM node than your react application, and directly under body, to prevent the notifications being hidden behind an element with a higher [stacking context](https://developer.mozilla.org/en/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context). (and it can also be overriden).
 
 ![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/screenshot.png)
 
@@ -34,7 +38,7 @@ Plug & Play toast notification system for react applications.
 * [x] _done_ Prevent remounting if already exists
 * [x] _done_ Allow unmounting from DOM on demand
 
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/screenshot1.png)
+![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec2.gif)
 
 # Usage
 
@@ -115,3 +119,5 @@ It accepts an options object with the following options:
     * **Required**: NO
     * **Type**: number
     * **Default**: `3000`
+
+![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/screenshot1.png)
