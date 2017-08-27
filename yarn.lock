@@ -3155,9 +3155,9 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-linear-debounce:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/linear-debounce/-/linear-debounce-1.0.0.tgz#fe81b8f4189042868b4f7438a0ad65555d4e1dda"
+linear-debounce@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/linear-debounce/-/linear-debounce-1.1.0.tgz#673227b161ac5e1aa88be068bdcc9fd09e47aeb1"
 
 load-json-file@^1.0.0:
   version "1.1.0"
