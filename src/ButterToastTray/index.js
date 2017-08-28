@@ -114,7 +114,8 @@ class ButterToastTray extends Component {
 
         const timeout = parseInt(payload.toastTimeout, 10) || parseInt(this.config.toastTimeout, 10),
             sticky = payload.sticky,
-            hideOn = timeout - 300,
+            hideOn = timeout + 50,
+            removeOn = hideOn + 300,
             toastId = generateToastId(),
             height = 0,
             key = Date.now();
@@ -127,7 +128,7 @@ class ButterToastTray extends Component {
             },
             '50': () => this.showToast(toastId),
             [hideOn.toString()]: () => !sticky && this.hideToast(toastId),
-            [timeout.toString()]: () => !sticky && this.removeToast(toastId)
+            [removeOn.toString()]: () => !sticky && this.removeToast(toastId)
         });
         this.debouncer[key]();
     }
