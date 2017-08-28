@@ -1,6 +1,6 @@
 {
   "name": "butter-toast",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Smooth react toast notifications",
   "main": "./dist/index.js",
   "scripts": {

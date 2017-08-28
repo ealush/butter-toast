@@ -59,7 +59,9 @@ class ButterToast extends Component {
     }
 
     componentWillUnmount() {
-        ButterToast.unmount(this.config, this._tray);
+        if (!this.props.renderInContext) {
+            ButterToast.unmount(this.config, this._tray);
+        }
     }
 
     render() {
