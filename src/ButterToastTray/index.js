@@ -58,10 +58,12 @@ class ButterToastTray extends Component {
     }
 
     triggerDismiss(toastId, force) {
-        const key = Date.now();
+        const key = Date.now(),
+            hide = force ? 0 : 300,
+            remove = hide + 300;
         this.debouncer[key] = linear({
-            '300': () => this.hideToast(toastId, force),
-            '600': () => this.removeToast(toastId, force)
+            [hide.toString()]: () => this.hideToast(toastId, force),
+            [remove.toString()]: () => this.removeToast(toastId, force)
         });
 
         this.debouncer[key]();

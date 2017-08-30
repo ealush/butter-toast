@@ -3,10 +3,20 @@ import PropTypes from 'prop-types';
 import './style.scss';
 
 class ActionWrapper extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.onClick = this.onClick.bind(this);
+
+        const content = props.toast.payload.content;
+
+        if (!content) {
+            this.content = null;
+        } else if (typeof content === 'function') {
+            this.content = content;
+        } else {
+            this.content = () => content;
+        }
     }
 
     componentDidMount() {
@@ -22,20 +32,17 @@ class ActionWrapper extends Component {
     }
 
     render() {
-        let Content;
+
+        if (!this.content) {
+            return null;
+        }
+
+        const Content = this.content;
         const {style, toast, onMouseEnter, onMouseLeave, triggerDismiss} = this.props;
         const className = `action-wrapper${toast.shown ? ' shown' : ''}`,
             payload = toast.payload,
             toastId = toast.toastId,
             dismiss = () => triggerDismiss(toastId, true);
-
-        if (!toast.payload.content) {
-            return null;
-        } else if (typeof toast.payload.content === 'function') {
-            Content = toast.payload.content;
-        } else {
-            Content = () => toast.payload.content;
-        }
 
         return (<span id={toastId}
             onMouseEnter={onMouseEnter}
