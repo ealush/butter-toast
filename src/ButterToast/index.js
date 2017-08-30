@@ -8,9 +8,9 @@ import ButterToastTray from '../ButterToastTray';
 
 class ButterToast extends Component {
 
-    static raise(payload) {
+    static raise(payload = {}, options = {}) {
         const toast = new CustomEvent('ButterToast', {
-            detail: payload
+            detail: Object.assign({}, payload, options)
         });
 
         return window.dispatchEvent(toast);
