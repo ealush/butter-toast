@@ -1,6 +1,6 @@
 {
   "name": "butter-toast",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Smooth react toast notifications",
   "main": "./dist/index.js",
   "scripts": {
@@ -34,6 +34,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "eslint": "4.6.0",
+    "cinnamon-sugar": "^0.0.1",
     "eslint-plugin-react": "^7.1.0",
     "node-sass": "^4.5.3",
     "react": "15.6.1",

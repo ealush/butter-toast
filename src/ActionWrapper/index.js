@@ -37,11 +37,11 @@ class ActionWrapper extends Component {
             return null;
         }
 
-        const Content = this.content;
-        const {style, toast, onMouseEnter, onMouseLeave, triggerDismiss} = this.props;
-        const className = `action-wrapper${toast.shown ? ' shown' : ''}`,
+        const Content = this.content,
+            {style, toast, onMouseEnter, onMouseLeave, triggerDismiss} = this.props,
             payload = toast.payload,
             toastId = toast.toastId,
+            className = `action-wrapper${toast.shown ? ' shown' : ''} ${payload.wrapperClass ? payload.wrapperClass : ''}`,
             dismiss = () => triggerDismiss(toastId, true);
 
         return (<span id={toastId}

@@ -1469,6 +1469,10 @@ chokidar@^1.0.0, chokidar@^1.6.1, chokidar@^1.7.0:
   optionalDependencies:
     fsevents "^1.0.0"
 
+cinnamon-sugar:
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/cinnamon-sugar/-/cinnamon-sugar-0.0.1.tgz#e41b085a40786b666f62de37815dc1d1d9232bbd"
+
 cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
   version "1.0.4"
   resolved "https://registry.npmjs.org/cipher-base/-/cipher-base-1.0.4.tgz#8760e4ecc272f4c363532f926d874aae2c1397de"
