@@ -41,7 +41,7 @@ class ActionWrapper extends Component {
             {style, toast, onMouseEnter, onMouseLeave, triggerDismiss} = this.props,
             payload = toast.payload,
             toastId = toast.toastId,
-            className = `action-wrapper${toast.shown ? ' shown' : ''} ${payload.wrapperClass ? payload.wrapperClass : ''}`,
+            className = `action-wrapper${toast.shown ? ' shown' : ''} ${payload.wrapperClass ? payload.wrapperClass : ''}${payload.dismissOnClick ? ' clickable' : ''}`,
             dismiss = () => triggerDismiss(toastId, true);
 
         return (<span id={toastId}

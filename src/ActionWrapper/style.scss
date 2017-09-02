@@ -8,4 +8,8 @@
     &.shown {
         opacity: 1;
     }
+
+    &.clickable {
+        cursor: pointer;
+    }
 }
