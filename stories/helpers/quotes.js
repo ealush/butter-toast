@@ -1,15 +1,28 @@
 const quotes = [
     'Wubba-lubba-dub-dub!',
     'Rikki-Tikki-Tavi, biatch!',
-    "And that's why I always say, \"shum-shum-schlippety-dop!\"",
-    "Sometimes science is more art than science, Morty. Lot of people don't get that.",
-    "Quantum carburetor? Jesus Morty, you can't just add a sci-fi word to a car word and hope it means something. Looks like something's wrong with the micro-verse battery.",
-    "Uncertainty is inherently unsustainable. Eventually, everything either is or isn't.",
     'Oh, shit!',
+    'I can\'t really get tired of this',
+    'They call me Mister Tibbs',
+    'I drink your milkshake!',
+    'Chewie, we\'re home',
+    'I\'m walking here!',
+    'It was Beauty killed the Beast.',
+    'They\'re here!',
+    'Elementary, my dear Watson.',
+    'It\'s alive! It\'s alive!',
+    'Pay no attention to that man behind the curtain!',
+    'I\'m having an old friend for dinner.',
+    'I\'m not bad. I\'m just drawn that way.',
+    'Shaken, not stirred.',
+    'Roads? Where we\'re going we don\'t need roads.',
+    'Show me the money!',
+    'Carpe diem. Seize the day, boys.',
+    'To infinity and beyond!',
+    'Why so serious?',
     'How is this a fair trial? Our laywer is a Morty.',
-    'You\'re classified as a hostile entity and Unity doesn\'t wanna talk to you.',
-    'Can somebody just let me out of here? If I die in a cage I lose a bet.',
-    "That's my one-armed man! I'm not driven by avenging my dead family, Morty! That was fake. I-I-I'm driven by finding that McNugget sauce.",
-    "We're on a planet that's purging, Summer. Purging. We lost our car and my gun and we're in a purge."];
+    'Because he\'s the hero Gotham deserves, but not the one it needs right now, so we\'ll hunt him. Because he can take it, because he\'s not a hero. He\'s a silent guardian, a watchful protector, a Dark Knight.',
+    'Madness, as you know, is like gravity, all it takes is a little push'
+];
 
 export default quotes;

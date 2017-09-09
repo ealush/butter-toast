@@ -28,26 +28,6 @@ body {
         }
     }
 
-    .toast {
-        display: inline-block;
-        box-sizing: border-box;
-        box-shadow: 0 3px 5px $md-grey-400;
-        transition: box-shadow .3s;
-        overflow: hidden;
-
-        &:hover {
-            box-shadow: 0 3px 5px $md-grey-600 !important;
-        }
-
-        .t5 {
-            cursor: pointer;
-        }
-
-        a {
-            color: $md-grey-100;
-            text-decoration: none;
-        }
-    }
 }
 
 .butter-toast-tray.butter-toast-large {

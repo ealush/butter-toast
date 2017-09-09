@@ -33,12 +33,8 @@ Plug & Play toast notification system for react applications.
 * Provide Toast HTML:
     The only HTML provided with Butter Toast is the markup for the tray itself. The structure of each toast is completely up to the consumer.
 
-## TODO - prioritized
-* [x] _done_ Add theming support for easy styling
-* [x] _done_ Prevent remounting if already exists
-* [x] _done_ Allow unmounting from DOM on demand
-
 ![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec2.gif)
+
 
 # Usage
 
@@ -89,6 +85,8 @@ class MyComponent extends Component {
 * **theme** As already noted, Butter Toast does not provide any styling options other than what's needed to stick the tray to the corners of the screen. You may, however pass a `theme` prop that will be added as a class name to the tray, which will help you style it.
 When adding a theme, the class name added to the tray will be prefixed with `bt-theme-`, so, if your theme is: `lady-bug`, the class added to the tray will be: `bt-theme-lady-bug`.
 
+![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec3.gif)
+
 ## Options when 'raising' a toast
 To trigger a new toast notification, you need to call the static method `raise` that's on the ButterToast object.
 It accepts an options object with the following options:
@@ -100,6 +98,11 @@ It accepts an options object with the following options:
     If passed as a function, the following params are being passed to it:
         * toastId | `number`
         * dismiss | `function` | call this function to dismiss the toast
+* **onClick**
+    * **Description**: Adds an onClick handler to the toast. Clicking anywhere on the toast (except any child with a `btn-dismiss` class) will perform the action and dismiss the toast.
+    * **Required**: NO
+    * **Type**: Function
+    * **Default**: `undefined`
 * **dismissOnClick**
     * **Description**:  If true, attaches a click event listener on the whole toast. clicking the toast will dismiss it.
     * **Required**: NO

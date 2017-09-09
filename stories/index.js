@@ -3,20 +3,20 @@ import { storiesOf } from '@kadira/storybook';
 import PropTypes from 'prop-types';
 import { quotes, icons, images, rand } from './helpers';
 import ButterToast from '../src/ButterToast';
+import cinnamon from 'cinnamon-sugar';
 import './style.scss';
 
 function raise(options = {}) {
-    const defaults = {
-        content: (
-            <div className="my-toast">
-                {rand(quotes)}
-                <i className={`fa ${rand(icons)}`}/>
-            </div>
-        ),
-        toastTimeout: 5000
-    };
+    const toast = cinnamon({
+        kind: 'crunch',
+        title: rand(['WOW!', 'Awesome!', 'Whoopsie', 'Error']),
+        message: rand(quotes),
+        theme: rand(['red', 'blue', 'purple', 'orange', 'green', 'grey']),
+        icon: rand(icons),
+        onClick: (tid) => console.log('what?!', tid)
+    });
 
-    ButterToast.raise(Object.assign({}, defaults, options));
+    ButterToast.raise(Object.assign({}, toast, options));
 }
 
 function raiseRandomTimeout() {

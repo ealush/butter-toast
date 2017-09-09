@@ -1469,9 +1469,9 @@ chokidar@^1.0.0, chokidar@^1.6.1, chokidar@^1.7.0:
   optionalDependencies:
     fsevents "^1.0.0"
 
-cinnamon-sugar:
-  version "0.0.1"
-  resolved "https://registry.npmjs.org/cinnamon-sugar/-/cinnamon-sugar-0.0.1.tgz#e41b085a40786b666f62de37815dc1d1d9232bbd"
+cinnamon-sugar@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/cinnamon-sugar/-/cinnamon-sugar-0.1.0.tgz#96cc3df0dd7b49b0f4e3e400c110cf20ff960977"
 
 cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
   version "1.0.4"
@@ -2148,9 +2148,9 @@ eslint-scope@^3.7.1:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint@4.5.0:
-  version "4.5.0"
-  resolved "https://registry.npmjs.org/eslint/-/eslint-4.5.0.tgz#bb75d3b8bde97fb5e13efcd539744677feb019c3"
+eslint@4.6.0:
+  version "4.6.0"
+  resolved "https://registry.npmjs.org/eslint/-/eslint-4.6.0.tgz#98ced4a706a87abbe63207895d0023a38e250bbe"
   dependencies:
     ajv "^5.2.0"
     babel-code-frame "^6.22.0"

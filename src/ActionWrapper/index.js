@@ -24,11 +24,19 @@ class ActionWrapper extends Component {
         this.props.setToastHeight(this.props.toast.toastId, height);
     }
 
-    onClick() {
-        const toast = this.props.toast;
+    onClick(e) {
+        const toast = this.props.toast,
+            isBtnDismiss = e.target.classList.contains('btn-dismiss');
+
+        if (typeof toast.payload.onClick === 'function' && !isBtnDismiss) {
+            toast.payload.onClick(toast.toastId);
+            return this.props.triggerDismiss(toast.toastId, true);
+        }
+
         if (toast.payload.dismissOnClick) {
             this.props.triggerDismiss(toast.toastId, true);
         }
+
     }
 
     render() {
@@ -41,7 +49,7 @@ class ActionWrapper extends Component {
             {style, toast, onMouseEnter, onMouseLeave, triggerDismiss} = this.props,
             payload = toast.payload,
             toastId = toast.toastId,
-            className = `action-wrapper${toast.shown ? ' shown' : ''} ${payload.wrapperClass ? payload.wrapperClass : ''}${payload.dismissOnClick ? ' clickable' : ''}`,
+            className = `action-wrapper${toast.shown ? ' shown' : ''} ${payload.wrapperClass ? payload.wrapperClass : ''}${payload.dismissOnClick || payload.onClick ? ' clickable' : ''}`,
             dismiss = () => triggerDismiss(toastId, true);
 
         return (<span id={toastId}
