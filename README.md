@@ -5,13 +5,15 @@
 
 Plug & Play toast notification system for react applications.
 
+-- toast styles are added using: [Cinnamon-Sugar](https://github.com/ealush/cinnamon-sugar);
+
 ```npm install butter-toast```
 
 [Live Demo](ealush.github.io/butter-toast)
 
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec1.gif)
+![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec5.gif)
 
-## What does it do:
+## What does:
 * Display your toast notifications on the page
 * Automatically calculate the height of each toast and stack them up.
 * Add transition when each enters or leaves the screen
@@ -25,15 +27,15 @@ Plug & Play toast notification system for react applications.
 * Stay if hovered, leave after hover and toast duration end
 * Create the notifications under a different DOM node than your react application, and directly under body, to prevent the notifications being hidden behind an element with a higher [stacking context](https://developer.mozilla.org/en/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context). (and it can also be overriden).
 
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/screenshot.png)
+![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec4.gif)
 
 ## What it does not do
 * Provdie styling:
     Other than what's actually needed to stick the tray to the corners of the screen and transition the toasts, Butter Toast does not provide any styling whatsoever, understanding that each consumer might expect it to look differently.
-* Provide Toast HTML:
-    The only HTML provided with Butter Toast is the markup for the tray itself. The structure of each toast is completely up to the consumer.
+    **Note**: A companion package exists just for that: [Cinnamon-Sugar](https://github.com/ealush/cinnamon-sugar);
+* Spread butter over your real toast
 
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec2.gif)
+![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec3.gif)
 
 
 # Usage
@@ -85,7 +87,7 @@ class MyComponent extends Component {
 * **theme** As already noted, Butter Toast does not provide any styling options other than what's needed to stick the tray to the corners of the screen. You may, however pass a `theme` prop that will be added as a class name to the tray, which will help you style it.
 When adding a theme, the class name added to the tray will be prefixed with `bt-theme-`, so, if your theme is: `lady-bug`, the class added to the tray will be: `bt-theme-lady-bug`.
 
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec3.gif)
+![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec1.gif)
 
 ## Options when 'raising' a toast
 To trigger a new toast notification, you need to call the static method `raise` that's on the ButterToast object.
@@ -123,4 +125,4 @@ It accepts an options object with the following options:
     * **Type**: number
     * **Default**: `3000`
 
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/screenshot1.png)
+![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec0.gif)
