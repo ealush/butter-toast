@@ -9,7 +9,7 @@ Plug & Play toast notification system for react applications.
 
 ```npm install butter-toast```
 
-[Live Demo](ealush.github.io/butter-toast)
+[Live Demo](https://ealush.github.io/butter-toast)
 
 ![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec5.gif)
 
