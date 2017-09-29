@@ -1,11 +1,12 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import { storiesOf, action } from '@kadira/storybook';
+import { storiesOf, action } from '@storybook/react';
 import { quotes, icons, rand } from './helpers';
 import ButterToast from '../src/ButterToast';
 import cinnamon from 'cinnamon-sugar';
 import './style.scss';
 
-function raise(options = {}) {
+function raise(e, options = {}) {
+    e.preventDefault();
     const toast = cinnamon({
         kind: 'crunch',
         title: rand(['WOW!', 'Awesome!', 'Whoopsie', 'Error']),
@@ -18,20 +19,20 @@ function raise(options = {}) {
     ButterToast.raise(Object.assign({}, toast, options));
 }
 
-function raiseRandomTimeout() {
-    raise({toastTimeout: (Math.round(Math.random()*7000) + 3000), name: 'slim t6'});
+function raiseRandomTimeout(e) {
+    raise(e, {toastTimeout: (Math.round(Math.random()*7000) + 3000), name: 'slim t6'});
 }
 
-function raiseSticky() {
-    raise({
+function raiseSticky(e) {
+    raise(e, {
         sticky: true,
         dismissOnClick: true,
         name: 'slim t5'
     });
 }
 
-function raiseDismissOnClick() {
-    raise({
+function raiseDismissOnClick(e) {
+    raise(e, {
         dismissOnClick: true,
         name: 'slim t2'
     });
@@ -41,13 +42,7 @@ storiesOf('Toast', module) // eslint-disable-line no-undef
     .add('bottom-left', () => (
         <div>
             <ButterToast name="slim t1" trayPosition="bottom-left"/>
-            <a href="#!" onClick={() => raise({name: 'slim t1'})}>Raise a toast!</a>
-        </div>
-    ))
-    .add('bottom-right: large (children as a function)', () => (
-        <div>
-            <ButterToast name="large" toastMargin="10" trayPosition="bottom-right"/>
-            <a href="#!" onClick={() => raise({name: 'slim large'})}>Raise a toast!</a>
+            <a href="#!" onClick={(e) => raise(e, {name: 'slim t1'})}>Raise a toast!</a>
         </div>
     ))
     .add('top-right: Dismiss on Click', () => (
@@ -59,13 +54,13 @@ storiesOf('Toast', module) // eslint-disable-line no-undef
     .add('top-left', () => (
         <div>
             <ButterToast name="slim t3" trayPosition="top-left"/>
-            <a href="#!" onClick={() => raise({name: 'slim t3'})}>Raise a toast!</a>
+            <a href="#!" onClick={(e) => raise(e, {name: 'slim t3'})}>Raise a toast!</a>
         </div>
     ))
     .add('bottom-center', () => (
         <div>
             <ButterToast name="slim t4" trayPosition="bottom-center"/>
-            <a href="#!" onClick={() => raise({name: 'slim t4'})}>Raise a toast!</a>
+            <a href="#!" onClick={(e) => raise(e, {name: 'slim t4'})}>Raise a toast!</a>
         </div>
     ))
     .add('top-center: Sticky', () => (
