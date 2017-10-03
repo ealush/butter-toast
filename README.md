@@ -127,3 +127,8 @@ It accepts an options object with the following options:
     * **Default**: `3000`
 
 ![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec0.gif)
+
+## Underwater
+Butter-toast underwater logic specifications that user should know:
+* **onMouseEnter**: When hovering mouse above toast the timeout timer is stopped.
+* **onMouseLeave**: After mouse leaves toast area the timer continues where it left and timeouts normally.
