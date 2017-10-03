@@ -83,6 +83,7 @@ class MyComponent extends Component {
 
     All these are added as class names to the tray.
 * **toastMargin**: how much distance (in px) should toasts take from each other
+* **renderInContext**: `boolean` | optional. By default the tray is rendered as a direct descendant of the body element. renderInContext allows the tray to be rendered as a direct descendant of the element in which you declare it, giving you the ability to easily position it relative to that element.
 * **name**: allows simple namespacing. A way to make toasts appear in a specific tray. Irrelevant if you only have one active tray. Also, it adds a css class of the same name, which makes styling easier.
 * **theme** As already noted, Butter Toast does not provide any styling options other than what's needed to stick the tray to the corners of the screen. You may, however pass a `theme` prop that will be added as a class name to the tray, which will help you style it.
 When adding a theme, the class name added to the tray will be prefixed with `bt-theme-`, so, if your theme is: `lady-bug`, the class added to the tray will be: `bt-theme-lady-bug`.
@@ -115,7 +116,7 @@ It accepts an options object with the following options:
     * **Required**: NO
     * **Type**: Boolean
     * **Default**: `false`
-* **sticky**
+* **name**
     * **Description**: Allows showing a toast in a specific tray (or trays). Provides simple namespacing. If none is provide, the toast will appear in all trays.
     * **Required**: NO
     * **Type**: String
