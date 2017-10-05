@@ -82,10 +82,11 @@ class MyComponent extends Component {
     * bottom-left
 
     All these are added as class names to the tray.
-* **toastMargin**: how much distance (in px) should toasts take from each other
+* **toastMargin**: `integer` | optional | Default: `5`. how much distance (in px) should toasts take from each other.
 * **renderInContext**: `boolean` | optional. By default the tray is rendered as a direct descendant of the body element. renderInContext allows the tray to be rendered as a direct descendant of the element in which you declare it, giving you the ability to easily position it relative to that element.
-* **name**: allows simple namespacing. A way to make toasts appear in a specific tray. Irrelevant if you only have one active tray. Also, it adds a css class of the same name, which makes styling easier.
-* **theme** As already noted, Butter Toast does not provide any styling options other than what's needed to stick the tray to the corners of the screen. You may, however pass a `theme` prop that will be added as a class name to the tray, which will help you style it.
+* **name**: `string` | optional. allows simple namespacing. A way to make toasts appear in a specific tray. Irrelevant if you only have one active tray. Also, it adds a css class of the same name, which makes styling easier.
+* **pauseOnHover**: `boolean` | optional | default: `false`. Changes the default behavior when hovering. By default, when hovering over a toast, even though it doesn't dismiss - it will keep counting down to its dismissal, meaning that if its timeout ended, it will dismiss on mouse-out. Setting `pauseOnHover` to true, will pause the countdown for as long as the toast is being hovered - meaning that the timeout cannot end while hovering.
+* **theme**: `string` | optional. As already noted, Butter Toast does not provide any styling options other than what's needed to stick the tray to the corners of the screen. You may, however pass a `theme` prop that will be added as a class name to the tray, which will help you style it.
 When adding a theme, the class name added to the tray will be prefixed with `bt-theme-`, so, if your theme is: `lady-bug`, the class added to the tray will be: `bt-theme-lady-bug`.
 
 ![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec1.gif)
