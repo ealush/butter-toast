@@ -39,9 +39,9 @@ function raiseDismissOnClick(e) {
 }
 
 storiesOf('Toast', module) // eslint-disable-line no-undef
-    .add('bottom-left', () => (
+    .add('bottom-left (pauseOnHover example)', () => (
         <div>
-            <ButterToast name="slim t1" trayPosition="bottom-left"/>
+            <ButterToast name="slim t1" pauseOnHover trayPosition="bottom-left"/>
             <a href="#!" onClick={(e) => raise(e, {name: 'slim t1'})}>Raise a toast!</a>
         </div>
     ))
