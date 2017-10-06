@@ -129,7 +129,7 @@ It accepts an options object with the following options:
 ![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec0.gif)
 
 ## Underwater
-Butter-toast underwater logic specifications that user should know:
+Butter-toast underwater logic specifications that users should be aware of:
 
 * **onMouseEnter**: 
 Defaulf behaviour: When hovering mouse above toast the timeout timer is not stopped, though toast will not be dismissed as long as mouse hovers the toast.
