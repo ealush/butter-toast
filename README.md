@@ -133,7 +133,7 @@ Butter-toast underwater logic specifications that user should know:
 
 * **onMouseEnter**: 
 Defaulf behaviour: When hovering mouse above toast the timeout timer is not stopped, though toast will not be dismissed as long as mouse hovers the toast.
-If pauseOnHover value set to true, toast timeout is paused.
+If `pauseOnHover` prop is set to true, toast timeout _is_ paused.
 * **onMouseLeave**:
-Default behaviour: After mouse leaves toast area the toast respect the timer and is dismissed after it timeouts. If the timeout was reached before mouse left toast area the toast is dismissed instantly.
-If pauseOnHover value set to true, toast timeout timer continues where it left and timeouts normally.
+Default behaviour: After the mouse leaves toast area, the toast respect the timer and gets dismissed after its timeout. If the timeout was reached before mouse left toast area the toast is dismissed instantly.
+If `pauseOnHover` prop is set to true, toast timeout timer _continues_ where it left off and times out normally.
