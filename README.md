@@ -130,5 +130,10 @@ It accepts an options object with the following options:
 
 ## Underwater
 Butter-toast underwater logic specifications that user should know:
-* **onMouseEnter**: When hovering mouse above toast the timeout timer is stopped.
-* **onMouseLeave**: After mouse leaves toast area the timer continues where it left and timeouts normally.
+
+* **onMouseEnter**: 
+Defaulf behaviour: When hovering mouse above toast the timeout timer is not stopped, though toast will not be dismissed as long as mouse hovers the toast.
+If pauseOnHover value set to true, toast timeout is paused.
+* **onMouseLeave**:
+Default behaviour: After mouse leaves toast area the toast respect the timer and is dismissed after it timeouts. If the timeout was reached before mouse left toast area the toast is dismissed instantly.
+If pauseOnHover value set to true, toast timeout timer continues where it left and timeouts normally.
