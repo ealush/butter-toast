@@ -23,7 +23,7 @@
   "homepage": "https://github.com/ealush/butter-toast#readme",
   "dependencies": {
     "babel-runtime": "^6.26.0",
-    "linear-debounce": "1.1.0",
+    "linear-debounce": "1.1.1",
     "prop-types": "^15.5.10"
   },
   "devDependencies": {
