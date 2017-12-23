@@ -41,6 +41,14 @@ class ButterToastTray extends Component {
 
     onMouseEnter(e) {
         const toastId = e.currentTarget.id;
+
+        if (this.config.pauseOnHover && this.debouncer[toastId]) {
+            this.debouncer[toastId].cancel();
+            delete this.debouncer[toastId];
+            const now = Date.now();
+            this.remaining = this.end - now;
+        }
+
         this.hovering = toastId;
     }
 
@@ -48,6 +56,16 @@ class ButterToastTray extends Component {
         const toastId = e.currentTarget.id;
         if (toastId === this.hovering) {
             this.hovering = null;
+        }
+
+        if (this.config.pauseOnHover) {
+            this.start = Date.now();
+            this.end = this.start + this.remaining;
+            this.debouncer[toastId] = linear({
+                [this.remaining.toString()]: () => this.triggerDismiss(toastId)
+            });
+            this.debouncer[toastId]();
+            return;
         }
 
         if (!this.toasts[toastId].awaitsRemoval) {
@@ -59,7 +77,7 @@ class ButterToastTray extends Component {
 
     triggerDismiss(toastId, force) {
         const key = Date.now(),
-            hide = force ? 0 : 300,
+            hide = force ? 0 : 50,
             remove = hide + 300;
         this.debouncer[key] = linear({
             [hide.toString()]: () => this.hideToast(toastId, force),
@@ -116,23 +134,22 @@ class ButterToastTray extends Component {
 
         const timeout = parseInt(payload.toastTimeout, 10) || parseInt(this.config.toastTimeout, 10),
             sticky = payload.sticky,
-            hideOn = timeout + 50,
-            removeOn = hideOn + 300,
             toastId = generateToastId(),
-            height = 0,
-            key = Date.now();
+            height = 0;
 
         this.setToastHeight(toastId, height);
+        this.start = Date.now() + 50;
+        this.end = this.start + timeout;
+        this.remaining = this.end - this.start;
 
-        this.debouncer[key] = linear({
+        this.debouncer[toastId] = linear({
             '0': () => {
                 this.setState((prevState) => ({toasts: [{ toastId, payload, height }].concat(prevState.toasts)}));
             },
             '50': () => this.showToast(toastId),
-            [hideOn.toString()]: () => !sticky && this.hideToast(toastId),
-            [removeOn.toString()]: () => !sticky && this.removeToast(toastId)
+            [timeout.toString()]: () => !sticky && this.triggerDismiss(toastId)
         });
-        this.debouncer[key]();
+        this.debouncer[toastId]();
     }
 
     render() {
