@@ -27,7 +27,7 @@
     "prop-types": "^15.5.10"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "3.2.11",
+    "@storybook/addon-actions": "3.2.19",
     "@storybook/react": "3.2.19",
     "babel-cli": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
