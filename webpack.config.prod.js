@@ -5,6 +5,7 @@ module.exports = {
     entry: {
         index: ['./src/ButterToast/index.js']
     },
+    devtool: 'source-map',
     externals: {
         'react': 'react',
         'react-dom': 'react-dom'
@@ -12,7 +13,7 @@ module.exports = {
     target: 'node',
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: '[name].js',
+        filename: 'butter-toast.js',
         library: 'ButterToast',
         libraryTarget: 'umd'
     },
@@ -30,6 +31,9 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin()
+        new webpack.optimize.UglifyJsPlugin({
+            minimize: true,
+            sourceMap: true
+        })
     ]
 };
