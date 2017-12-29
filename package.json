@@ -9,7 +9,17 @@
     "build-storybook": "build-storybook",
     "build": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build:watch": "NODE_ENV=production webpack --config webpack.config.prod.js --watch",
-    "eslint": "eslint -c .eslintrc './src/**/*.js'; exit 0"
+    "eslint": "eslint -c .eslintrc './src/**/*.js'; exit 0",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "jest": {
+    "setupFiles": [
+      "./test/jestSetup.js"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   },
   "repository": {
     "type": "git",
@@ -26,21 +36,28 @@
     "linear-debounce": "1.1.1"
   },
   "devDependencies": {
-    "prop-types": "^15.6.0",
     "@storybook/addon-actions": "3.3.3",
     "@storybook/react": "3.3.3",
     "babel-cli": "^6.24.1",
+    "babel-jest": "^22.0.4",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "cinnamon-sugar": "^1.0.0",
     "css-loader": "^0.28.7",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.0",
     "eslint": "4.14.0",
     "eslint-plugin-react": "^7.5.1",
+    "jest": "^22.0.4",
     "node-sass": "^4.7.2",
+    "prop-types": "^15.6.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
+    "react-test-renderer": "^16.2.0",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.19.0",
     "uglifyjs-webpack-plugin": "^1.1.5",
