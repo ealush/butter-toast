@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import defaults from './defaults';
 import { generateClassName, findByClassName } from './helpers';
-import ButterToastTray from '../ButterToastTray';
+import Tray from '../Tray';
 
 class ButterToast extends Component {
 
@@ -54,7 +54,7 @@ class ButterToast extends Component {
         root.setAttribute('class', className);
         document.body.appendChild(root);
 
-        ReactDOM.render(<ButterToastTray ref={(tray) => this._tray = tray} {...this.config}/>, root);
+        ReactDOM.render(<Tray ref={(tray) => this._tray = tray} {...this.config}/>, root);
     }
 
     componentWillUnmount() {
@@ -69,7 +69,7 @@ class ButterToast extends Component {
 
             return (
                 <aside className={className}>
-                    <ButterToastTray ref={(tray) => this._tray = tray} {...this.config}/>
+                    <Tray ref={(tray) => this._tray = tray} {...this.config}/>
                 </aside>
             );
         } else {
