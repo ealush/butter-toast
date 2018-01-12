@@ -1,4 +1,4 @@
-export { default as Crisp } from './kinds/Crisp';
-export { default as Crunch } from './kinds/Crunch';
-export { default as Slim } from './kinds/Slim';
-export { default as Fresh } from './kinds/Fresh';
+export { default as crisp } from './kinds/Crisp';
+export { default as crunch } from './kinds/Crunch';
+export { default as slim } from './kinds/Slim';
+export { default as fresh } from './kinds/Fresh';

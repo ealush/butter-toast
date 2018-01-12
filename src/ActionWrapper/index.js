@@ -29,8 +29,8 @@ class ActionWrapper extends Component {
             isBtnDismiss = e.target.classList.contains('btn-dismiss');
 
         if (typeof toast.payload.onClick === 'function' && !isBtnDismiss) {
-            toast.payload.onClick(toast.toastId);
-            return this.props.triggerDismiss(toast.toastId, true);
+            this.props.triggerDismiss(toast.toastId, true);
+            return toast.payload.onClick(e, toast.toastId);
         }
 
         if (toast.payload.dismissOnClick) {

@@ -3,14 +3,14 @@ import wrap from '../../wrap';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-function Fresh({ message, title, theme='dark', icon, picture, dismiss, noClose }) {
+function Fresh({ message, title, theme='dark', icon, image, dismiss, noClose }) {
     const iconClass = icon ? `fa fa-${icon}` : '',
         noIconClass = iconClass === '' ? ' no-icon' : '',
-        pictureStyle = picture ? { backgroundImage: `url('${picture}')`} : { display: 'none' };
+        imageStyle = image ? { backgroundImage: `url('${image}')`} : { display: 'none' };
 
     return (
-        <div className={`cinnamon-sugar-fresh ${theme}${noIconClass}`}>
-            <figure style={pictureStyle}/>
+        <div className={`cinnamon-sugar-Fresh ${theme}${noIconClass}`}>
+            <figure style={imageStyle}/>
             { title && <div className="title">{title}</div> }
             { message && <div className="message">{message}</div> }
             {!noClose && <a href="#!"
@@ -25,7 +25,7 @@ Fresh.propTypes = {
     message: PropTypes.any,
     title: PropTypes.any,
     theme: PropTypes.string,
-    picture: PropTypes.string,
+    image: PropTypes.string,
     icon: PropTypes.string,
     dismiss: PropTypes.func,
     noClose: PropTypes.bool

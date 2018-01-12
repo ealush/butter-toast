@@ -7,7 +7,7 @@ function Crunch({ message, title, theme='grey', icon, dismiss, noClose }) {
     const iconClass = icon ? `fa fa-${icon}` : '',
         noIconClass = iconClass === '' ? ' no-icon' : '';
     return (
-        <div className={`cinnamon-sugar-crunch ${theme}${noIconClass}`}>
+        <div className={`cinnamon-sugar-Crunch ${theme}${noIconClass}`}>
             <aside className={iconClass}/>
             { title && <div className="title">{title}</div> }
             { message && <div className="message">{message}</div> }

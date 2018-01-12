@@ -8,7 +8,7 @@ function Crisp({ message, title, theme='success', icon, dismiss, noClose }) {
         noIconClass = iconClass === '' ? ' no-icon' : '';
 
     return (
-        <div className={`cinnamon-sugar-crisp ${theme}${noIconClass}`}>
+        <div className={`cinnamon-sugar-Crisp ${theme}${noIconClass}`}>
             <aside className={iconClass}/>
             { title && <div className="title">{title}</div> }
             { message && <div className="message">{message}</div> }

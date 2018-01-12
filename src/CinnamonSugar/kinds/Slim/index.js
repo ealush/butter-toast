@@ -5,7 +5,7 @@ import './style.scss';
 
 function Slim({ message, theme = 'dark' }) {
     return (
-        <div className={`cinnamon-sugar-slim ${theme}`}>
+        <div className={`cinnamon-sugar-Slim ${theme}`}>
             {message}
         </div>
     );
