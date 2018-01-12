@@ -2,9 +2,7 @@ const path = require('path'),
     webpack = require('webpack');
 
 module.exports = {
-    entry: {
-        index: ['./src/ButterToast/index.js']
-    },
+    entry: './src/index.js',
     devtool: 'source-map',
     externals: {
         'react': 'react',
