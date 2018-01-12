@@ -4,7 +4,7 @@ import { generateToastId, translate } from './helpers';
 import linear from 'linear-debounce';
 import './style.scss';
 
-class ButterToastTray extends Component {
+class Tray extends Component {
     constructor(config) {
         super(config);
 
@@ -187,4 +187,4 @@ class ButterToastTray extends Component {
     }
 }
 
-export default ButterToastTray;
+export default Tray;

@@ -1,0 +1,59 @@
+@keyframes hide {
+    0% { transform: scale(1); }
+    100% { transform: scale(.7); }
+}
+
+@keyframes showDown {
+    0% { transform: translateY(25px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes showUp {
+    0% { transform: translateY(-25px); }
+    100% { transform: translateY(0px); }
+}
+
+.butter-toast-tray[class*="top-"] .action-wrapper.shown .toast [class*="cinnamon-sugar-"] {
+    animation: showUp .4s;
+}
+
+.butter-toast-tray[class*="bottom-"] .action-wrapper.shown .toast [class*="cinnamon-sugar-"] {
+    animation: showDown .4s;
+}
+
+.action-wrapper:not(.shown) .toast [class*="cinnamon-sugar-"] {
+    z-index: 0;
+    animation: hide 1s;
+}
+
+// following section applies for "crisp" and "crunch"
+.toast [class*="cinnamon-sugar-"] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &.no-icon {
+        padding-left: 10px;
+
+        aside {
+            display: none;
+        }
+    }
+
+    aside {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 60px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &:before {
+            font-family: 'FontAwesome';
+            font-size: 22px;
+        }
+    }
+}

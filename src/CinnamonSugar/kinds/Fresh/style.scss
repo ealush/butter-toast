@@ -1,0 +1,105 @@
+@import '../../base.scss';
+
+@keyframes showIconTop {
+    0% { transform: translateY(-200%); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes showIconBottom {
+    0% { transform: translateY(200%); }
+    100% { transform: translateY(0); }
+}
+
+.butter-toast-tray[class*="top-"] .action-wrapper.shown .toast .cinnamon-sugar-fresh aside:before {
+    animation: showIconTop .5s;
+}
+
+.butter-toast-tray[class*="bottom-"] .action-wrapper.shown .toast .cinnamon-sugar-fresh aside:before {
+    animation: showIconBottom .5s;
+}
+
+.toast .cinnamon-sugar-fresh {
+    font-size: 11px;
+    line-height: 14px;
+    position: relative;
+    min-height: 50px;
+    width: 250px;
+    padding: 10px 25px 10px 70px;
+    box-sizing: border-box;
+    box-shadow: 0 3px 5px $md-grey-300;
+    border-radius: 4px;
+    transition: box-shadow .3s;
+    overflow: hidden;
+    z-index: 1;
+
+    figure {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        margin: 0;
+        background-size: cover;
+        background-position: 50% 50%;
+    }
+
+    aside {
+        top: 30px;
+        right: 0;
+        bottom: 5px;
+        width: 25px;
+        left: auto;
+        justify-content: flex-end;
+
+        &:before {
+            font-size: 15px;
+        }
+    }
+
+    &:hover {
+        box-shadow: 0 3px 5px $md-grey-400;
+    }
+
+    .title {
+        padding-bottom: 5px;
+        font-size: 15px;
+    }
+
+    a.btn-dismiss {
+        position: absolute;
+        right: 0;
+        top: 0;
+        text-decoration: none;
+        text-align: center;
+        padding: 8px;
+        box-sizing: border-box;
+        font-size: 16px;
+        transition: opacity .2s;
+
+        &:hover {
+            opacity: .8;
+        }
+
+        &:active {
+            opacity: .5;
+        }
+    }
+
+    &.dark {
+        background-color: $md-grey-900;
+        color: $md-white;
+
+        a.btn-dismiss {
+            color: $md-white;
+        }
+    }
+    &.lite {
+        background-color: $md-grey-100;
+        color: $md-grey-800;
+
+        a.btn-dismiss {
+            color: $md-grey-800;
+        }
+    }
+}

@@ -1,0 +1,72 @@
+@import '../../base.scss';
+
+@keyframes showIconTop {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes showIconBottom {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(0); }
+}
+
+.butter-toast-tray[class*="top-"] .action-wrapper.shown .toast .cinnamon-sugar-crunch aside:before {
+    animation: showIconTop .5s;
+}
+
+.butter-toast-tray[class*="bottom-"] .action-wrapper.shown .toast .cinnamon-sugar-crunch aside:before {
+    animation: showIconBottom .5s;
+}
+
+.cinnamon-sugar-crunch {
+    color: $md-white;
+    font-size: 11px;
+    line-height: 14px;
+    position: relative;
+    min-height: 50px;
+    width: 300px;
+    padding: 10px 25px 10px 60px;
+    box-sizing: border-box;
+    box-shadow: 0 3px 5px $md-grey-300;
+    border-radius: 2px;
+    transition: box-shadow .3s;
+    overflow: hidden;
+    z-index: 1;
+
+    &:hover {
+        box-shadow: 0 3px 5px $md-grey-400;
+    }
+
+    .title {
+        padding-bottom: 5px;
+        font-size: 15px;
+    }
+
+    a.btn-dismiss {
+        color: $md-white;
+        position: absolute;
+        right: 0;
+        top: 0;
+        text-decoration: none;
+        text-align: center;
+        padding: 8px;
+        box-sizing: border-box;
+        font-size: 16px;
+        transition: opacity .2s;
+
+        &:hover {
+            opacity: .8;
+        }
+
+        &:active {
+            opacity: .5;
+        }
+    }
+
+    &.grey    { background-color: $md-grey-800; }
+    &.red     { background-color: $md-red-a700; }
+    &.blue    { background-color: $md-blue-900; }
+    &.purple  { background-color: $md-deep-purple-900; }
+    &.orange  { background-color: $md-orange-900; }
+    &.green   { background-color: $md-green-800; }
+}
