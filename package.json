@@ -1,6 +1,6 @@
 {
   "name": "butter-toast",
-  "version": "1.1.2",
+  "version": "2.0.1",
   "description": "Smooth react toast notifications",
   "main": "./dist/butter-toast.js",
   "scripts": {
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@storybook/addon-actions": "3.3.4",
-    "@storybook/react": "3.3.3",
+    "@storybook/react": "3.3.4",
     "babel-cli": "^6.24.1",
     "babel-jest": "^22.0.4",
     "babel-loader": "^7.1.2",
@@ -50,7 +50,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.0",
-    "eslint": "4.14.0",
+    "eslint": "4.15.0",
     "eslint-plugin-react": "^7.5.1",
     "jest": "^22.0.4",
     "node-sass": "^4.7.2",

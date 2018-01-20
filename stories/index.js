@@ -1,22 +1,21 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { storiesOf, action } from '@storybook/react';
 import { quotes, icons, rand } from './helpers';
-import ButterToast from '../src/ButterToast';
-import cinnamon from 'cinnamon-sugar';
+import ButterToast, { CinnamonSugar } from '../src';
 import './style.scss';
 
 function raise(e, options = {}) {
     e.preventDefault();
-    const toast = cinnamon({
-        kind: 'crunch',
+
+    const toast = CinnamonSugar.crunch({
         title: rand(['WOW!', 'Awesome!', 'Whoopsie', 'Error']),
         message: rand(quotes),
         theme: rand(['red', 'blue', 'purple', 'orange', 'green', 'grey']),
         icon: rand(icons),
-        onClick: action('clicked on toast')
+        onClick: action('clickity')
     });
 
-    ButterToast.raise(Object.assign({}, toast, options));
+    ButterToast.raise(toast, options);
 }
 
 function raiseRandomTimeout(e) {

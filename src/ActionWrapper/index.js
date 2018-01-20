@@ -29,14 +29,13 @@ class ActionWrapper extends Component {
             isBtnDismiss = e.target.classList.contains('btn-dismiss');
 
         if (typeof toast.payload.onClick === 'function' && !isBtnDismiss) {
-            toast.payload.onClick(toast.toastId);
-            return this.props.triggerDismiss(toast.toastId, true);
+            this.props.triggerDismiss(toast.toastId, true);
+            return toast.payload.onClick(e, toast.toastId);
         }
 
         if (toast.payload.dismissOnClick) {
             this.props.triggerDismiss(toast.toastId, true);
         }
-
     }
 
     render() {
@@ -49,7 +48,12 @@ class ActionWrapper extends Component {
             {style, toast, onMouseEnter, onMouseLeave, triggerDismiss} = this.props,
             payload = toast.payload,
             toastId = toast.toastId,
-            className = `action-wrapper${toast.shown ? ' shown' : ''} ${payload.wrapperClass ? payload.wrapperClass : ''}${payload.dismissOnClick || payload.onClick ? ' clickable' : ''}`,
+            classList = [
+                'action-wrapper',
+                toast.shown ? 'shown' : '',
+                payload.wrapperClass || '',
+                payload.dismissOnClick || payload.onClick ? 'clickable' : ''
+            ],
             dismiss = () => triggerDismiss(toastId, true);
 
         return (<span id={toastId}
@@ -57,7 +61,7 @@ class ActionWrapper extends Component {
             onMouseLeave={onMouseLeave}
             onClick={this.onClick}
             style={style}
-            className={className}
+            className={classList.filter(Boolean).join(' ')}
             ref={(ref) => this._toast = ref}>
             <span className="toast">
                 <Content toastId={toastId} dismiss={dismiss} name={payload.name} toastTimeout={payload.toastTimeout}/>
