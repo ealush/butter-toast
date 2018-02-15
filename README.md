@@ -196,6 +196,14 @@ content: ({tiastId, dismiss}) => (
 
 ![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec0.gif)
 
+# Universal / Server side rendered apps
+ButterToast uses webpack's `style-loader` which injects CSS into JS module and depends on `window` object - thus server-side rendering would raise an error.
+To bypass that you can consume the universal build, which outputs the style to CSS file instead JS:
+```
+import ButterToast from 'butter-toast/dist/universal/index.js';
+import 'butter-toast/dist/universal/style.css';
+```
+
 # Using the built in styles AKA CinnamonSugar
 By default, ButterToast toasts appear style-less and make no assumption on the intended look and feel. To allow easy ButterToast integration, it also comes bundelet with `CinnamonSugar`, which you can sprinkle over your toast and make it look awesome.
 
