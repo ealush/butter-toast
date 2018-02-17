@@ -1,9 +1,24 @@
 const path = require('path'),
     webpack = require('webpack'),
-    ExtractTextPlugin = require('extract-text-webpack-plugin');
+    ExtractTextPlugin = require('extract-text-webpack-plugin'),
+    env = process.env.WEBPACK_ENV;
+
+let jsName,
+    styleName,
+    entry;
+
+if (env === 'base') {
+    jsName = 'base';
+    styleName = 'base';
+    entry = './src/ButterToast/index.js';
+} else {
+    jsName = 'index';
+    styleName = 'style';
+    entry = './src/index.js';
+}
 
 module.exports = {
-    entry: './src/index.js',
+    entry,
     devtool: 'source-map',
     externals: {
         'react': 'react',
@@ -12,7 +27,7 @@ module.exports = {
     target: 'node',
     output: {
         path: path.join(__dirname, 'dist/universal'),
-        filename: 'index.js',
+        filename: `${jsName}.js`,
         library: 'ButterToast',
         libraryTarget: 'umd'
     },
@@ -34,6 +49,6 @@ module.exports = {
             minimize: true,
             sourceMap: true
         }),
-        new ExtractTextPlugin('style.css')
+        new ExtractTextPlugin(`${styleName}.css`)
     ]
 };

@@ -1,0 +1,35 @@
+.butter-toast-tray .action-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: transform .4s, opacity .3s; }
+  .butter-toast-tray .action-wrapper.shown {
+    opacity: 1; }
+  .butter-toast-tray .action-wrapper.clickable {
+    cursor: pointer; }
+.butter-toast-tray {
+  position: fixed;
+  z-index: 999999;
+  height: 0; }
+  .butter-toast-tray[class*="-left"] {
+    left: 5px; }
+  .butter-toast-tray[class*="-right"] {
+    right: 5px; }
+    .butter-toast-tray[class*="-right"] .wrapper {
+      text-align: right; }
+  .butter-toast-tray[class*="-center"] {
+    left: 50%; }
+    .butter-toast-tray[class*="-center"] .wrapper {
+      text-align: center; }
+  .butter-toast-tray[class*="top-"] {
+    top: 5px; }
+  .butter-toast-tray[class*="bottom-"] {
+    bottom: 5px; }
+  .butter-toast-tray .wrapper {
+    position: relative;
+    padding: 10px; }
+    .butter-toast-tray .wrapper .toast {
+      text-align: left; }
+
+/*# sourceMappingURL=base.css.map*/

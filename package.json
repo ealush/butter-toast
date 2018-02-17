@@ -1,6 +1,6 @@
 {
   "name": "butter-toast",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Smooth react toast notifications",
   "main": "./dist/butter-toast.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "build-storybook": "build-storybook",
     "build": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build:universal": "NODE_ENV=production webpack --config webpack.config.universal.js",
-    "build:all": "npm run build && npm run build:universal",
+    "build:base": "NODE_ENV=production WEBPACK_ENV=base webpack --config webpack.config.universal.js",
+    "build:all": "npm run build && npm run build:universal && npm run build:base",
     "build:watch": "NODE_ENV=production webpack --config webpack.config.prod.js --watch",
     "build:watch:universal": "NODE_ENV=production webpack --config webpack.config.universal.js --watch",
     "eslint": "eslint -c .eslintrc './src/**/*.js'; exit 0",
