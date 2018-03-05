@@ -150,7 +150,7 @@ ButterToast.raise({
 | Description| The actual content of a specific toast.
 | Notes | If passed as a function, the following params are being passed to it: toastId (`number`) and dismiss (`function`) call this function to dismiss the toast. So basically:
 ```js
-content: ({tiastId, dismiss}) => (
+content: ({toastId, dismiss}) => (
     <MyComponent dismiss={dismiss}/>
 );
 ```
