@@ -1,6 +1,6 @@
 {
   "name": "butter-toast",
-  "version": "2.0.1",
+  "version": "2.1.1",
   "description": "Smooth react toast notifications",
   "main": "./dist/butter-toast.js",
   "scripts": {
@@ -8,7 +8,11 @@
     "storybook": "start-storybook -p 9003",
     "build-storybook": "build-storybook",
     "build": "NODE_ENV=production webpack --config webpack.config.prod.js",
+    "build:universal": "NODE_ENV=production webpack --config webpack.config.universal.js",
+    "build:base": "NODE_ENV=production WEBPACK_ENV=base webpack --config webpack.config.universal.js",
+    "build:all": "npm run build && npm run build:universal && npm run build:base",
     "build:watch": "NODE_ENV=production webpack --config webpack.config.prod.js --watch",
+    "build:watch:universal": "NODE_ENV=production webpack --config webpack.config.universal.js --watch",
     "eslint": "eslint -c .eslintrc './src/**/*.js'; exit 0",
     "test": "jest",
     "test:watch": "jest --watch"
@@ -33,11 +37,12 @@
   "homepage": "https://github.com/ealush/butter-toast#readme",
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "extract-text-webpack-plugin": "^3.0.2",
     "linear-debounce": "1.1.1"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "3.3.4",
     "@storybook/react": "3.3.11",
+    "@storybook/addon-actions": "3.3.11",
     "babel-cli": "^6.24.1",
     "babel-jest": "^22.0.4",
     "babel-loader": "^7.1.2",
@@ -59,7 +64,7 @@
     "react-dom": "16.2.0",
     "react-test-renderer": "^16.2.0",
     "sass-loader": "^6.0.5",
-    "style-loader": "^0.19.0",
+    "style-loader": "^0.20.0",
     "uglifyjs-webpack-plugin": "^1.1.5",
     "webpack": "^3.10.0"
   }
