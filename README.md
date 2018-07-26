@@ -1,361 +1,355 @@
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/butterbot.png)
-
+![ButterToast](assets/butterbot.png)
 # Butter Toast
-[![Greenkeeper badge](https://badges.greenkeeper.io/ealush/butter-toast.svg)](https://greenkeeper.io/) [![bitHound Overall Score](https://www.bithound.io/github/ealush/butter-toast/badges/score.svg)](https://www.bithound.io/github/ealush/butter-toast)
 
-Plug & Play toast notification system for react applications.
+![ButterToast](assets/crisp-blue.gif)
 
-```npm install butter-toast```
+Butter Toast is a toast notification system for React apps that puts an emphasis on ease of use, customizability and butter-smooth transitions.
 
-[Live Demo](https://ealush.github.io/butter-toast)
+Butter Toast comes with a few built-in styles which you can apply, and you can also use any component for creating the notifications.
 
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec5.gif)
+## V3 update
+V3 is a near-complete re-write of butter-toast. It brings with it a simpler API and overall more stability (plus, better ie11 support), moreover - it better supports addign features in the future. **IT IS INCOMPATIBLE WITH V2**. If you are currently a happy V2 user, there is no need to rush for an upgrade - new features will only be added to V3, though.
 
-## What it does:
-* Displays your toast notifications on the page.
-* Automatically calculates the height of each toast and stacks them up.
-* Adds transition when each enters or leaves the screen.
-* Lets you set the position for the tray (top-left, top-center, top-right, bottom-right, bottom-center, bottom-left).
-* Lets you create full JSX toasts, have them look anyway **you** want.
-* Allows having multiple-independant trays of toast notifications on the same page. Notifications may appear in one, or all.
-* Sets sticky notifications that will stay forever.
-* Sets notifications that will be dismissed on click.
-* Provides an API for dismissing a toast from outside.
-* Sets a custom duration for each toast notification.
-* Stays if hovered, leaves after hover and toast duration end.
-* Creates the notifications under a different DOM node than your react application, and directly under body, to prevent the notifications being hidden behind an element with a higher [stacking context](https://developer.mozilla.org/en/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context). (and it can also be overriden).
+## Terminology:
+* **Toast**: A single notification in the stack.
+* **Tray**: The containing element of a stack of toasts.
+* **Raise**: The action of showing a toast of the screen.
+* **Dismiss**: The action of removing a toast from the screen.
+* **Cinnamon**: Styles library bundled with butter-toast
 
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec4.gif)
+# Content
+* [Feature list](#feaatures)
+* [How to install](#installation)
+    * [Controlling the bundle size](#controlling-the-bundle-size)
+* [How to use](#usage)
+    * [Creating a tray](#creating-a-notification-tray)
+        * [ButterToast Props](#buttertoast-props)
+        * [Understanding renderInContext](#understanding-renderincontext)
+        * [Positioning the tray on the screen](#positioning-the-tray)
+    * [Emitting a toast](#raising-emitting-a-toast)
+        * [Raise params](#raise-params)
+        * [Toast props](#toasts-content-props)
+        * [Custom dismiss and onClick](#using-the-custom-dismiss-and-onclick-handlers)
+        * [How to access the raise method](#accessing-raise)
+    * [Dismissing a toast](#dismissing-toasts)
+* [Using the built in styles (Cinnamon)](#using-the-built-in-styles-sprinkle-some-cinnamon-on-top)
+    * [Crisp](#crisp)
+    * [Crunch](#crunch)
+    * [Slim](#slim)
 
-## What it does not do
-* ButterToast does not assume anything on its intended usage.
-* ButterToast does not provide built in by default (but they are supplied)
-* ButterToast does not spread butter over your real toast
+## Feaatures
+* Any component can be a toast. You can use whatever you like.
+* Rendering the toast-notifications globally right under body to prevent stacking-context collision.
+* Rendering the toast notifications in-context, for positioning relative to parent component.
+* Multiple notification tray support, they can be namespaced for separate controls.
+* Emitting notifications from every part of your application, not just from the container component.
+* Multiple built-in themes.
+* Sticky toast notifications.
+* Custom on-dismiss and on-click callbacks.
+* Custom timeouts for toasts.
+* Toasts pause on hover.
+* dismissAll at once.
 
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec3.gif)
+## Installation
 
+```
+npm install --save butter-toast
+```
+
+## Controlling the bundle size
+By default ButterToast comes with a few built-in toast styles. For these styles, it uses [Styled Components](https://www.styled-components.com/) which adds to the overall bundle size. If you do not intend to use the built-in styles, you can use the `lean` bundle, which only exposes core stacking behavior, and is only ~4Kb gzipped.
+
+```js
+import ButterToast from 'butter-toast/dist/lean.min.js';
+```
 
 # Usage
 
-```js
+## Creating a notification tray
+To use Butter Toast you first need to instantiate a notification tray. You do this by rendering the `<ButterToast/>` Component. By default it will append your current tray directly under `body` unless you pass the `renderInContext` prop [read more](#understanding-renderincontext).
+
+### ButterToast props:
+| Prop | Type | Default | Optional | Description
+|------|------|---------|----------|------------
+| `renderInContext` | `boolean` | `true` | Y | Determines whether the tray should be renderd relative to `body` or to its parent component.
+| `className` | `string` |  | Y | Adds a class to the tray for custom styling
+| `nameSpace` | `string` |  | Y | Scopes the tray under a namespace, useful when multiple trays are present on the page.
+| `position` | `object` | `null` | `{ horizontal: 'POS_RIGHT', vertical: 'POS_TOP' }` | Y | Determines the location of the tray on the screen. When null is passed, no positioning will be applied.
+| `timeout` | `number` | `6000` | Y | The default time in ms for toasts in the tray. Can be overridden individually.
+| `spacing` | `number` | `10` | Y | The distance in pixels between each toast in the tray.
+
+```jsx
 import React, { Component } from 'react';
 import ButterToast from 'butter-toast';
 
 class MyComponent extends Component {
-
-    constructor() {
-        super();
-
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        ButterToast.raise({
-            content: ({toastId, dismiss}) => (
-                <div>
-                    here is the content of the toast. it can literally be anything you want
-                </div>
-            ),
-            toastTimeout: 5000 // default: 3000 ms
-        })
-    }
-
     render() {
-        <div>
-            <a href="#!" onClick={this.handleClick}>Click me to pop a toast</a>
-            <ButterToast trayPosition="bottom-left"/>
-        </div>
+        return (
+            <div>
+                <ButterToast/>
+            </div>
+        );
     }
 }
 ```
 
-## ButterToast Tray
+### Understanding renderInContext
+By default, a tray gets rendered as a top-level element, appended to the `<body>` of your html page. The reason this happens is that your toasts appear in an as-high-as-possible [stacking context](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context) and that nothing shows on top of them. If you need your toasts to be aligned to the content of your react app, or positioned relative to it, use the `renderInContext` prop that will treat your tray as a regular react component and render it as a descendant of its parent component.
 
-The ButterToast Tray is simply the elements to which toasts get appended. Rendering `<ButterToast/>` creates a tray and appends it to the `body`.
+When using `renderInContext` you will not be able to use ButterToasts positioning, you will need to manually specify the position for the tray using CSS.
 
-| Prop Name | `trayPosition`
-|-----------|-
-| Required | No
-| Type | `String`
-| Default | `bottom-right`
-| Description| where should the toasts stack up (or down) from.
-| Possible Values | `top-left`, `top-center`, `top-right`, `bottom-right`, `bottom-center`, `bottom-left`
-| Notes| Added as class names to the tray.
+To determine the direction in which the toasts stack, you can still use the `position.vertical` prop. Setting it to `POS_TOP` will make them stack from the top-down, and using `POS_BOTTOM` will make them stack from the bottom-up.
 
+### Positioning the tray
+By default a tray can be aligned to any of the four corners of the screen, and to the top-center, and bottom-center. You can of course use any positioning you would like via css.
 
-| Prop Name | `toastMargin`
-|-----------|-
-| Required | No
-| Type | `Number`
-| Default | 5
-| Description| how much distance (in px) should toasts take from each other
+If you use `renderInContext`, no positioning will be applied to your tray - css will need to be used.
 
-
-| Prop Name | `renderInContext`
-|-----------|-
-| Required | No
-| Type | `Boolean`
-| Default | `bottom-right`
-| Description|  By default the tray is rendered as a direct descendant of the body element. renderInContext allows the tray to be rendered as a direct descendant of the element in which you declare it, giving you the ability to easily position it relative to that element.
-
-
-| Prop Name | `name`
-|-----------|-
-| Required | No
-| Type | `String`
-| Default | `''`
-| Description| allows simple namespacing. A way to make toasts appear in a specific tray. Irrelevant if you only have one active tray. Also, it adds a css class of the same name, which makes styling easier.
-| Notes| Added as a class name to the tray.
-
-
-| Prop Name | `pauseOnHover`
-|-----------|-
-| Required | No
-| Type | `Boolean`
-| Default | `false`
-| Description| Changes the default behavior when hovering. By default, when hovering over a toast, even though it doesn't dismiss - it will keep counting down to its dismissal, meaning that if its timeout ended, it will dismiss on mouse-out. Setting `pauseOnHover` to true, will pause the countdown for as long as the toast is being hovered - meaning that the timeout cannot end while hovering.
-
-
-| Prop Name | `theme`
-|-----------|-
-| Required | No
-| Type | `String`
-| Default | `''`
-| Description| Adds a theme class name to the tray, so you can style it and its content the way you want.
-| Notes| When adding a theme, the class name added to the tray will be prefixed with `bt-theme-`, so, if your theme is: `lady-bug`, the class added to the tray will be: `bt-theme-lady-bug`.
-
-
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec1.gif)
-
-## Raising a toast:
-To trigger a new toast notification, you need to call the static method `raise` that's on the ButterToast object.
+ButterToast exposes five constants that let you determine the position of the tray on the scree:
 
 ```js
+import ButterToast, { POS_TOP, POS_BOTTOM, POS_LEFT, POS_RIGHT, POS_CENTER } from 'butter-toast';
+```
+
+With these you can specify the vertical and horizontal position of the tray. You need to create an object containing the keys `horizontal` and `vertical` to specify where the tray should appear, and pass it down as the `position` prop:
+
+```jsx
+import React, { Component } from 'react';
+import ButterToast, { POS_TOP, POS_CENTER } from 'butter-toast';
+
+class MyComponent extends Component {
+    render() {
+
+        const position = {
+            vertical: POS_TOP,
+            horizontal: POS_BOTTOM
+        };
+
+        return (
+            <div>
+                <ButterToast position={position}/>
+            </div>
+        );
+    }
+}
+```
+
+If you want to manually set the position via css, set `position` to `null` and no positioning will apply:
+
+```jsx
+import React, { Component } from 'react';
+import ButterToast from 'butter-toast';
+
+class MyComponent extends Component {
+    render() {
+        return (
+            <div>
+                <ButterToast position={null}/>
+            </div>
+        );
+    }
+}
+```
+
+## Raising (emitting) a toast
+To emit a toast, you need to use Butter Toast's `raise` method.
+Raise accepts the toast and its configuration, and returns its id. The id can later be used to dismiss the toast.
+
+## Raise params:
+The `raise` method accepts an object containing the content of your toast, and configuration for it:
+
+| Prop | Type | Default | Optional | Description
+|------|------|---------|----------|------------
+| `content` | `node` | ` ` | N | The actual content being rendered. Could be a react component, a function returning JSX or a string of text.
+| `nameSpace` | `string` |  | Y | The named trays to which the toast should apply
+| `timeout` | `number` | ` ` | Y | Overrides the tray's default timeout for the current toast.
+| `sticky` | `boolean` | `false` | Y | Makes the toast ignore its timeout and not dismiss until dismiss gets called on it.
+| `dismiss` | `function` | ` ` | Y | A custom dismiss function, passing it will require manually calling `dismiss`. The function will be passed down as a prop to `content`
+| `onClick` | `function` | ` ` | Y | onClick handler. The function will be passed down as a prop to `content`.
+| `pauseOnHover` | `boolean` | `true` | Y | By default, a toast that's being hovered will pause and not dismiss until released. Setting this to `false` will override this behavior.
+
+### Toast's Content props:
+* `toastId`: the toast's id
+* `dismiss`: either the native, or the custom dismiss handler
+* `onClick`: if passed, the onClick handler.
+* - any other prop passed to `raise`
+
+### Using the Custom dismiss and onClick handlers:
+Using a custom `dismiss` handler will override the default dismiss handler passed down to the component. This means that you will need to call the native `dismiss` handler manually.
+
+Both `dismiss` and `onClick` recieve the following params:
+* `e`: the event that triggered the function (i.e.: `click`)
+* `toast`: The full toast object, containing its component and id
+* `dismiss`: The native dismiss handler that needs to be called when manually dismissing the toast.
+
+## Accessing `raise`:
+The `raise` method is accessible in two ways:
+
+1. **A static method accessible via `ButterToast`:**
+This is extremely useful if you wish notifications to your tray from different locations in your app, or even from outside of React.
+
+If you have multiple trays in the page, using `raise` this way will emit the toast from all tray, unless you use the tray's namespace.
+
+```js
+import ButterToast from 'butter-toast';
+import `MyToast` from './MyToast';
+import React from 'react';
+
 ButterToast.raise({
-    content: <MyComponent/>,
-    onClick: (e) => console.log(e),
-    sticky: true,
-    dismissOnClick: true,
-    name: 'someCoolName',
+    namespace: 'my-tray',
+    content: MyToast,
+    onClick: ({ toastId, dismiss }) => { console.log('dismissing!'); dismiss(); }
+});
+
+ButterToast.raise({
+    content: ({ toastId, dismiss }) => <div onClick={dismiss}>woohoo!</div>
+});
+
+ButterToast.raise({
+    content: 'this is pretty awesome'
 });
 ```
 
-`ButterToast.raise` accepts an options object with the following options:
+2. **An instance method accessible via `ref`**
+This works exactly like the static method (option 1), only that you do not need to specify the namespapce of the tray as it is pre-linked.
 
-
-| Prop Name | `content`
-|-----------|-
-| Required | Yes
-| Type | React component or a function returning a react component.
-| Description| The actual content of a specific toast.
-| Notes | If passed as a function, the following params are being passed to it: toastId (`number`) and dismiss (`function`) call this function to dismiss the toast. So basically:
-```js
-content: ({toastId, dismiss}) => (
-    <MyComponent dismiss={dismiss}/>
-);
-```
-
-| Prop Name | `onClick`
-|-----------|-
-| Required | No
-| Type | `Function`
-| Description| Adds an onClick handler to the toast. Clicking anywhere on the toast (except any child with a `btn-dismiss` class) will perform the action and dismiss the toast.
-
-
-| Prop Name | `dismissOnClick`
-|-----------|-
-| Required | No
-| Type | `Boolean`
-| Default | `false`
-| Description| If true, attaches a click event listener on the whole toast. clicking the toast will dismiss it.
-
-
-| Prop Name | `sticky`
-|-----------|-
-| Required | No
-| Type | `Boolean`
-| Default | `false`
-| Description| If true, the toast will not go away, unless `dismiss` is triggered.
-
-
-| Prop Name | `name`
-|-----------|-
-| Required | No
-| Type | `String`
-| Default | `''`
-| Description| Allows showing a toast in a specific tray (or trays). Provides simple namespacing. If none is provide, the toast will appear in all trays.
-
-
-| Prop Name | `toastTimeout`
-|-----------|-
-| Required | No
-| Type | `Number`
-| Default | `3000`
-| Description| How many ms should the toast appear for if not manually dismissed
-
-
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec0.gif)
-
-# Universal / Server side rendered apps
-ButterToast uses webpack's `style-loader` which injects CSS into JS module and depends on `window` object - thus server-side rendering would raise an error.
-To bypass that you can consume the universal build, which outputs the style to CSS file instead JS:
-```
-import ButterToast from 'butter-toast/dist/universal/index.js';
-import 'butter-toast/dist/universal/style.css';
-```
-
-# Using the built in styles AKA CinnamonSugar
-By default, ButterToast toasts appear style-less and make no assumption on the intended look and feel. To allow easy ButterToast integration, it also comes bundelet with `CinnamonSugar`, which you can sprinkle over your toast and make it look awesome.
-
-Cinnamon sugar is a companion style-pack for Butter-Toast. While Butter Toast provides a smooth toast stacking interface, Cinnamon-sugar is intended to be used as a styling library, fully compatible with Butter-Toast.
-
-## Usage
-To use Cinnamon-Sugar you need to import it alongside Butter-Toast, and add your custom config whenever you want to show a toast.
-
-```js
+```jsx
 import React, { Component } from 'react';
-import ButterToast, { CinnamonSugar } from 'butter-toast';
+import ButterToast from 'butter-toast';
+import MyToast from './MyToast';
 
-class ShowOff extends Component {
+class MyComponent extends Component {
 
-    handleClick() {
-        // in this example, I am using a `fresh` toast
-        // since it has all the possible options
-        const toast = CinnamonSugar.fresh({
-            theme: 'lite',
-            image: 'http://lorempixel.com/150/150/people',
-            title: 'Amazing!', // you can also add jsx code here!
-            message: 'Just showing off here...', // you can also add jsx code here!
-            icon: 'bath' // literally any font awesome 4.7 icon
-            // you may also add here regular butter-toast options, such as toastTimeout,
-            // name, sticky, etc..
+    emitNotification = () => {
+        this.tray.raise({
+            content: MyToast
         });
-
-        ButterToast.raise(toast)
     }
 
     render() {
-        <span>
-            <a href="#!" onClick={this.handleClick.bind(this)}>Click me to pop a toast</a>
-            <ButterToast trayPosition="bottom-right"/>
-        </span>
+        return (
+            <div>
+                <ButterToast ref={tray => this.tray = tray} position={null}/>
+            </div>
+        );
     }
 }
-
-export default ShowOff;
 ```
 
-## What did I just see?
-So basically, the `ButterToast.raise` function accepts a toast-object with all the data required for emitting it. Cinnamon-Sugar is an object which contains functions that return ready to use toast objects.
+### Dismissing toasts
+Sometimes you would want to dismiss a toast from the outside the toast itself. Similarly `raise`, Butter Toast exposes the `dismiss` and `dismissAll` methods. Just like `raise`, they can be exposed either as ButterToast static functions (`ButterToast.dismiss` / `ButterToast.dismissAll`) or as instance methods (`this.tray.dismiss` / `this.tray.dismissAll`).
 
-Since cinnamonSugar builds a valid toast-object, you may pass it any butter-toast configuration you would normally pass to the raise function, and it would be added to the toast object. Your cinnamonSugar call may look like this:
+`dismiss` accepts the toast's id, and it will dismiss only it, if present in the tray specified.
 
 ```js
-const toast = CinnamonSugar.slim({
-    theme: 'dark',
-    message: 'Just showing off here...',
-    toastTimeout: 6000, // normal butter-toast option
-    dismissOnClick: true // normal butter-toast option
-};
+import ButterToast, { dismiss } from 'butter-toast';
+
+const toast = ButterToast.raise({ ... });
+ButterToast.dismiss(toast);
 ```
 
-There are four kinds of toasts, `crisp`, `crunch`, `fresh` and `slim`. Each has its own possible options, and its own themes:
+`dismissAll` takes no arguments. If used on a ref, it will dismiss all toasts in the tray, otherwise, it will remove all toasts on the screen.
 
-## Kinds
-There are currently four different kinds of styles:
+```jsx
+import React, { Component } from 'react';
+import ButterToast from 'butter-toast';
+import MyToast from './MyToast';
 
-### Crisp
-Bright, clean looking toast notification, featuring an icon on the left (optional) and a close button on the right. Appears with a satisfying animation, and has hover effects both for the close button and for the whole tost itself.
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec0.gif)
+class MyComponent extends Component {
 
-#### Options
-|Name|Description
-|-|-
-| message | Optional | Either a string or jsx/react component
-| title | Either a string or jsx/react component
-| icon | Any of font-awesome 4.7 icon names
-| noClose | Any of font-awesome 4.7 icon names
-| theme | Any of the supported themes
+    dismissAll = () => {
+        this.tray.dismissAll();
+    }
 
- #### supported themes
-The following themes are supported by default. Choosing one will paint the icon accordingly.
-* success (green)
-* error (red)
-* info (blue)
-* danger (orange)
-* golden
-* dark
-* default // no need to specify. light grey
+    render() {
+        return (
+            <div>
+                <ButterToast ref={tray => this.tray = tray} position={null}/>
+            </div>
+        );
+    }
+}
+```
 
+# Using the built in styles (Sprinkle some cinnamon on top)
 
-### Crunch
-Plain, colored toast notifications. With an icon on the left, and an optional close button on the top right. The icon appears with a sliding animation.
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec3.gif)
+For your convenience, Butter toast comes with a few built in Components for quick styling.
 
-#### Options
-|Name|Description
-|-|-
-| message | Optional | Either a string or jsx/react component
-| title | Either a string or jsx/react component
-| icon | Any of font-awesome 4.7 icon names
-| noClose | Any of font-awesome 4.7 icon names
-| theme | Any of the supported themes
+You can import them via the `cinnamon` export.
 
- #### supported themes
-The following themes are supported by default. Others may be added using custom CSS.
-* grey
-* red
-* blue
-* purple
-* orange
-* green
+```jsx
+import ButterToast, { Cinnamon } from 'butter-toast';
 
+ButterToast.raise({
+    content: <Cinnamon.Crisp title="exciting stuff"
+        content="some words"
+        scheme={Cinnamon.Crisp.SCHEME_RED}/>
+});
+```
 
-### Fresh
-Toast notifications that allow adding an image, an icon and a close button. Good especially for social media or live notification for messages.
+The included styles are:
+* Crisp
+* Crunch
+* Slim
 
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec4.gif)
+Each style comes with its own color schemes, and have a few more props the can further customize them.
 
-#### Options
-|Name|Description
-|-|-
-| message | Optional | Either a string or jsx/react component
-| title | Either a string or jsx/react component
-| icon | Any of font-awesome 4.7 icon names
-| image | image url
-| noClose | Any of font-awesome 4.7 icon names
-| theme | Any of the supported themes
+All components' content props can be a node. This means that you can pass down a component, a function that returns JSX or a string of text.
 
-#### supported themes
-The following themes are supported by default. Others may be added using custom CSS.
-* lite
-* dark
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec5.gif)
+The schemes can be accessed as an export of the component itself:
 
-### Slim
- Thin, simple toast notifications. Goot for status updates, and action confirmations.
+```js
+import ButterToast, { Cinnamon } from 'butter-toast';
 
-![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/rec1.gif)
+Cinnamon.Crisp.SCHEME_BLUE;
+Cinnamon.Crunch.SCHEME_ORANGE;
+Cinnamon.Slim.SCHEME_DARK;
+```
 
+## Crisp
 
-#### Options
-|Name|Description
-|-|-
-| message | Either a string or jsx/react component
-| theme | Any of the supported themes
+![crisp-blue](assets/crisp-blue.gif)
 
- #### supported themes
-The following themes are supported by default. Others may be added using custom CSS.
-* lite
-* dark
+Crisp exposes the following color schemes: `SCHEME_GREY`, `SCHEME_RED`, `SCHEME_ORANGE`, `SCHEME_PURPLE`, `SCHEME_GREEN`, `SCHEME_BLUE`.
 
+Crisp props:
 
-## Underwater
-Butter-toast underwater logic specifications that users should be aware of:
+| Prop | Type | Default | Optional | Description
+|------|------|---------|----------|------------
+| `dismissible` | `boolean` | `true` | Y | Determines whether the `x` button should be visible.
+| `title` | `node` | `null` | Y | A component or a string containing the title of the toast.
+| `content` | `node` | `null` | Y | A component or a string containing the content of the toast.
+| `icon` | `node` | `null` | Y | A component or a string containing the icon of the toast.
+| `scheme` | `string` | `SCHEME_GREY` | Y | The color scheme for the toast.
 
-* **onMouseEnter**:
-Defaulf behaviour: When hovering mouse above toast the timeout timer is not stopped, though toast will not be dismissed as long as mouse hovers the toast.
-If `pauseOnHover` prop is set to true, toast timeout _is_ paused.
-* **onMouseLeave**:
-Default behaviour: After the mouse leaves toast area, the toast respect the timer and gets dismissed after its timeout. If the timeout was reached before mouse left toast area the toast is dismissed instantly.
-If `pauseOnHover` prop is set to true, toast timeout timer _continues_ where it left off and times out normally.
+![crisp-blue](assets/crisp-orange.gif)
+
+## Crunch
+Crunch exposes the following color schemes: `SCHEME_GREY`, `SCHEME_RED`, `SCHEME_ORANGE`, `SCHEME_GREEN`, `SCHEME_BLUE`.
+
+![crisp-blue](assets/crunch-green.gif)
+
+Crunch props:
+
+| Prop | Type | Default | Optional | Description
+|------|------|---------|----------|------------
+| `dismissible` | `boolean` | `true` | Y | Determines whether the `x` button should be visible.
+| `title` | `node` | `null` | Y | A component or a string containing the title of the toast.
+| `content` | `node` | `null` | Y | A component or a string containing the content of the toast.
+| `icon` | `node` | `null` | Y | A component or a string containing the icon of the toast.
+| `scheme` | `string` | `SCHEME_GREY` | Y | The color scheme for the toast.
+
+## Slim
+
+![crisp-blue](assets/slim-light.gif)
+
+Crunch exposes the following color schemes: `SCHEME_DARK`, `SCHEME_LIGHT`.
+
+Crunch props:
+
+| Prop | Type | Default | Optional | Description
+|------|------|---------|----------|------------
+| `content` | `node` | `null` | Y | A component or a string containing the content of the toast.
+| `scheme` | `string` | `SCHEME_GREY` | Y | The color scheme for the toast.
+
+![crisp-blue](assets/slim-dark.gif)
