@@ -1,2 +1,7 @@
 node_modules/
 dist/
+dev/
+*.scss
+*.json
+coverage/
+storybook-static/

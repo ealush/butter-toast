@@ -1,0 +1,27 @@
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+#root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#root > div > button  {
+    padding: 5px 10px;
+    outline: none;
+    display: none;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.fa {
+    font-size: 25px;
+}

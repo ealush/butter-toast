@@ -1,5 +1,28 @@
 {
-  "presets": [ "stage-0", "env", "react"
-  ],
-  "plugins": ["transform-runtime"]
+    "presets": [
+        "react",
+        ["env", {
+            "targets": {
+                "browsers": ["last 4 versions", "not ie <= 10"]
+            },
+            "modules": false
+        }],
+        "stage-3"
+    ],
+    "env": {
+        "test": {
+            "presets": [
+                "react",
+                ["env", {
+                    "targets": {
+                        "node": "current"
+                    }
+                }]
+            ]
+        }
+    },
+    "plugins": [
+        "transform-class-properties",
+        "transform-runtime"
+    ]
 }

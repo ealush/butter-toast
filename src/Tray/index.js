@@ -1,188 +1,136 @@
 import React, { Component } from 'react';
-import ActionWrapper from '../ActionWrapper';
-import { generateToastId, translate } from './helpers';
-import linear from 'linear-debounce';
-import './style.scss';
+import { generateId } from '../lib';
+import { Ul, Li } from './styles';
+import { POS_BOTTOM } from '../ButterToast/styles';
+import Toast from '../Toast';
+import { CUSTOM_EVENT_NAME } from '../ButterToast';
+import { ulStyle, liStyle } from './styles';
 
 class Tray extends Component {
-    constructor(config) {
-        super(config);
 
-        this.config = config;
-
-        this.state = { toasts: [] };
-        this.toasts = {};
-
+    constructor(props) {
+        super(props);
         this.onButterToast = this.onButterToast.bind(this);
-        this.setToastHeight = this.setToastHeight.bind(this);
-        this.onMouseEnter = this.onMouseEnter.bind(this);
-        this.onMouseLeave = this.onMouseLeave.bind(this);
-        this.triggerDismiss = this.triggerDismiss.bind(this);
-        this.isBottom = this.config.trayPosition.indexOf('bottom') > -1;
-        this.isRight = this.config.trayPosition.indexOf('-right') > -1;
-        this.isCenter = this.config.trayPosition.indexOf('-center') > -1;
-        this.debouncer = {};
+    }
+
+    state = {
+        toasts: []
     }
 
     componentDidMount() {
-        window.addEventListener('ButterToast', this.onButterToast);
+        window.addEventListener(CUSTOM_EVENT_NAME, this.onButterToast);
     }
 
     componentWillUnmount() {
-        Object.values(this.debouncer).forEach((item) => item.cancel());
-        delete this.debouncer;
-        window.removeEventListener('ButterToast', this.onButterToast);
+        window.removeEventListener(CUSTOM_EVENT_NAME, this.onButterToast);
     }
 
-    setToastHeight(toastId, height = 0) {
-        this.toasts[toastId] = this.toasts[toastId] || {};
-        this.toasts[toastId].height = height;
-    }
+    id = generateId('tray')
+    toasts = {}
 
-    onMouseEnter(e) {
-        const toastId = e.currentTarget.id;
+    onButterToast({detail} = {}) {
 
-        if (this.config.pauseOnHover && this.debouncer[toastId]) {
-            this.debouncer[toastId].cancel();
-            delete this.debouncer[toastId];
-            const now = Date.now();
-            this.remaining = this.end - now;
-        }
+        const { namespace, dismissBy, ...payload } = detail;
 
-        this.hovering = toastId;
-    }
-
-    onMouseLeave(e) {
-        const toastId = e.currentTarget.id;
-        if (toastId === this.hovering) {
-            this.hovering = null;
-        }
-
-        if (this.config.pauseOnHover) {
-            this.start = Date.now();
-            this.end = this.start + this.remaining;
-            this.debouncer[toastId] = linear({
-                [this.remaining.toString()]: () => this.triggerDismiss(toastId)
-            });
-            this.debouncer[toastId]();
+        if (namespace && namespace !== this.props.namespace) {
             return;
         }
 
-        if (!this.toasts[toastId].awaitsRemoval) {
+        if (!dismissBy) {
+            return setTimeout(() => this.push(payload));
+        }
+
+        dismissBy === 'all' ? this.dismissAll() : this.dismiss(dismissBy);
+    }
+
+    createToastRef = (id, ref) => {
+        if (!id) {
             return;
         }
 
-        this.triggerDismiss(toastId);
+        if (!ref) {
+            delete this.toasts[id];
+            return;
+        }
+
+        this.toasts[id] = ref;
     }
 
-    triggerDismiss(toastId, force) {
-        const key = Date.now(),
-            hide = force ? 0 : 50,
-            remove = hide + 300;
-        this.debouncer[key] = linear({
-            [hide.toString()]: () => this.hideToast(toastId, force),
-            [remove.toString()]: () => this.removeToast(toastId, force)
-        });
+    push = (payload = {}) => {
+        const timeout = this.props.timeout;
 
-        this.debouncer[key]();
-    }
-
-    showToast(toastId) {
         this.setState((prevState) => {
             const nextState = Object.assign({}, prevState);
-            const index = nextState.toasts.findIndex((toast) => toast.toastId === toastId);
-
-            if (index === -1) {
-                return prevState;
-            }
-
-            nextState.toasts[index].shown = true;
-            nextState.toasts[index].height = this.toasts[toastId].height;
+            nextState.toasts = [{
+                timeout, ...payload
+            }].concat(nextState.toasts);
             return nextState;
         });
     }
 
-    hideToast(toastId, force) {
-        if (!force && this.hovering === toastId) {
-            return this.toasts[toastId].awaitsRemoval = true;
-        }
+    remove = (id) => {
         this.setState((prevState) => {
             const nextState = Object.assign({}, prevState);
-            const index = nextState.toasts.findIndex((toast) => toast.toastId === toastId);
-
-            if (index === -1) {
-                return prevState;
-            }
-
-            nextState.toasts[index].shown = false;
+            nextState.toasts = nextState.toasts.filter((toast) => toast.id !== id);
             return nextState;
         });
     }
 
-    removeToast(toastId, force) {
-        if (!force && this.hovering === toastId) {
-            return this.toasts[toastId].awaitsRemoval = true;
+    dismiss = (id) => {
+        if (this.toasts[id] && this.toasts[id].close) {
+            this.toasts[id].close();
         }
-        this.setState((prevState) => ({ toasts: prevState.toasts.filter((toast) => toast.toastId !== toastId)}));
     }
 
-    onButterToast(e) {
-        const payload = e.detail;
-        if (!payload || (payload.name && payload.name !== this.config.name)) {
-            return;
+    dismissAll = () => {
+        for (const toast in this.toasts) {
+            this.dismiss(toast);
         }
+    }
 
-        const timeout = parseInt(payload.toastTimeout, 10) || parseInt(this.config.toastTimeout, 10),
-            sticky = payload.sticky,
-            toastId = generateToastId(),
-            height = 0;
-
-        this.setToastHeight(toastId, height);
-        this.start = Date.now() + 50;
-        this.end = this.start + timeout;
-        this.remaining = this.end - this.start;
-
-        this.debouncer[toastId] = linear({
-            '0': () => {
-                this.setState((prevState) => ({toasts: [{ toastId, payload, height }].concat(prevState.toasts)}));
-            },
-            '50': () => this.showToast(toastId),
-            [timeout.toString()]: () => !sticky && this.triggerDismiss(toastId)
+    setHeight = (id, height) => {
+        this.setState((prevState) => {
+            const nextState = Object.assign({}, prevState);
+            const index = nextState.toasts.findIndex((toast) => toast.id === id);
+            nextState.toasts[index].height = height;
+            return nextState;
         });
-        this.debouncer[toastId]();
     }
 
     render() {
-        const config = this.config,
-            toasts = this.state.toasts,
-            isBottom = this.isBottom,
-            isRight = this.isRight,
-            isCenter = this.isCenter;
-
-        let heights = 0;
+        const { toasts } = this.state;
+        const { position, spacing } = this.props;
+        let offset = 0;
 
         return (
-            <div className="wrapper">
+            <ul style={ulStyle}>
                 {toasts.map((toast, index) => {
-                    const height = parseInt(toasts[index].height, 10);
-                    heights += (height + parseInt(config.toastMargin, 10));
-                    const style = translate({
-                        height: (isBottom ? -heights : heights-height),
-                        isRight,
-                        isCenter
-                    });
+                    if (!toast) { return null; }
+
+                    const height = toast.height || 0;
+                    let currentOffset;
+
+                    currentOffset = offset;
+                    offset += height + spacing;
+
+                    if (position && position.vertical === POS_BOTTOM) {
+                        currentOffset = -currentOffset - height;
+                    }
+
+                    const style = liStyle({ offset: currentOffset, spacing, position, height: toast.height, index });
 
                     return (
-                        <ActionWrapper key={toast.toastId}
-                            setToastHeight={this.setToastHeight}
-                            onMouseEnter={this.onMouseEnter}
-                            onMouseLeave={this.onMouseLeave}
-                            triggerDismiss={this.triggerDismiss}
-                            toast={toast}
-                            style={style}/>
+                        <li key={toast.id} style={style}>
+                            <Toast dismiss={() => this.dismiss(toast.id)}
+                                remove={() => this.remove(toast.id)}
+                                setHeight={this.setHeight}
+                                position={position}
+                                ref={(ref) => this.createToastRef(toast.id, ref)}
+                                toast={toast}/>
+                        </li>
                     );
                 })}
-            </div>
+            </ul>
         );
     }
 }

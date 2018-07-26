@@ -1,5 +1,8 @@
 import ButterToast from './ButterToast';
-import * as CinnamonSugar from './CinnamonSugar';
 
-export { CinnamonSugar };
+import * as Cinnamon from './Cinnamon';
+
 export default ButterToast;
+export {
+    Cinnamon
+};
