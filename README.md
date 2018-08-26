@@ -95,7 +95,7 @@ The ButterToast Tray is simply the elements to which toasts get appended. Render
 |-----------|-
 | Required | No
 | Type | `Boolean`
-| Default | `bottom-right`
+| Default | `false`
 | Description|  By default the tray is rendered as a direct descendant of the body element. renderInContext allows the tray to be rendered as a direct descendant of the element in which you declare it, giving you the ability to easily position it relative to that element.
 
 
