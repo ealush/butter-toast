@@ -3,3 +3,14 @@ node_js:
 - '6'
 - '8'
 - node
+script:
+- npm run build:all
+deploy:
+  provider: npm
+  email: evyatar.a@fiverr.com
+  skip_cleanup: true
+  api_key: $NPM_TOKEN
+  on:
+    repo: ealush/butter-toast
+    branch: master
+    node: '8'
