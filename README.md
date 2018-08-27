@@ -1,7 +1,7 @@
 ![alt tag](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/butterbot.png)
 
 # Butter Toast
-[![Greenkeeper badge](https://badges.greenkeeper.io/ealush/butter-toast.svg)](https://greenkeeper.io/) [![bitHound Overall Score](https://www.bithound.io/github/ealush/butter-toast/badges/score.svg)](https://www.bithound.io/github/ealush/butter-toast)
+[![Greenkeeper badge](https://badges.greenkeeper.io/ealush/butter-toast.svg)](https://greenkeeper.io/)
 
 Plug & Play toast notification system for react applications.
 
