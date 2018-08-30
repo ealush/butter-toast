@@ -13,6 +13,10 @@
     100% { transform: translateY(0px); }
 }
 
+.butter-toast-tray {
+    font-family: Open Sans, sans-serif;
+}
+
 .butter-toast-tray[class*="top-"] .action-wrapper.shown .toast [class*="cinnamon-sugar-"] {
     animation: showUp .4s;
 }
