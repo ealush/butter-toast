@@ -4,7 +4,8 @@ node_js:
 - '8'
 - node
 script:
-- npm run build:all
+- npm test
+- npm run build
 deploy:
   provider: npm
   email: evyatar.a@fiverr.com

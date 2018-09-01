@@ -1,75 +1,125 @@
-import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import defaults from './defaults';
-import { generateClassName, findByClassName } from './helpers';
+import { generateId } from '../lib';
+import styles, { POS_TOP, POS_BOTTOM, POS_LEFT, POS_RIGHT, POS_CENTER } from './styles';
 import Tray from '../Tray';
+export const CUSTOM_EVENT_NAME = 'ButterToast';
+
+function dispatchCustomEvent(payload) {
+    let event;
+    const detail = Object.assign({ namespace: '' }, payload);
+
+    if (typeof window.CustomEvent === 'function') {
+        event = new CustomEvent(CUSTOM_EVENT_NAME, { detail });
+    } else {
+        event = document.createEvent('CustomEvent');
+        event.initCustomEvent(CUSTOM_EVENT_NAME, false, false, detail);
+    }
+
+    window.dispatchEvent(event);
+}
 
 class ButterToast extends Component {
 
-    static raise(payload = {}, options = {}) {
-        const toast = new CustomEvent('ButterToast', {
-            detail: Object.assign({}, payload, options)
-        });
-
-        return window.dispatchEvent(toast);
+    static raise(payload = {}) {
+        const id = generateId();
+        dispatchCustomEvent({ id, ...payload });
+        return id;
     }
 
-    static unmount(props, _tray) {
-        const className = generateClassName(props),
-            root = findByClassName(className);
+    static dismiss(id) { dispatchCustomEvent({ dismissBy: id }); }
+    static dismissAll(id) { dispatchCustomEvent({ dismissBy: 'all' }); }
 
-        if (_tray) {
-            window.removeEventListener('ButterToast', _tray.onButterToast);
-        }
-
-        ReactDOM.unmountComponentAtNode(root);
-        root.parentNode.removeChild(root);
+    raise = (payload = {}) => {
+        const id = generateId();
+        this.tray.push({ id, ...payload });
+        return id;
     }
 
-    constructor(props) {
-        super(props);
-
-        this.config = Object.assign({}, defaults, props);
-        this.className = generateClassName(this.config);
-        this.theme = '';
-        if (this.config.theme) {
-            this.theme = ` bt-theme-${this.config.theme}`;
-        }
-    }
+    dismiss = (id) => this.tray.push(id);
+    dismissAll = () => this.tray.dismissAll();
 
     componentDidMount() {
-
         if (this.props.renderInContext) {
             return;
         }
 
-        if (findByClassName(this.className)) {
-            return;
-        }
+        const {
+            position,
+            timeout,
+            spacing,
+            namespace
+        } = this.props;
 
-        const className = `${this.className}${this.theme}`;
+        const style = styles(position, spacing);
+        this.root = document.createElement('aside');
+        this.root.setAttribute('class', this.className);
+        Object.assign(this.root.style, style);
+        document.body.appendChild(this.root);
 
-        const root = document.createElement('aside');
-        root.setAttribute('class', className);
-        document.body.appendChild(root);
-
-        ReactDOM.render(<Tray ref={(tray) => this._tray = tray} {...this.config}/>, root);
+        ReactDOM.render(<Tray ref={this.createTrayRef}
+            namespace={namespace}
+            spacing={spacing}
+            timeout={timeout}
+            position={position}/>,
+        this.root);
     }
 
     componentWillUnmount() {
-        if (!this.props.renderInContext) {
-            ButterToast.unmount(this.config, this._tray);
+        if (!this.root) {
+            return;
         }
+
+        delete window._btTrays[this.id];
+        ReactDOM.unmountComponentAtNode(this.root);
+        this.root.parentNode.removeChild(this.root);
+        delete this.root;
+    }
+
+    createTrayRef = (ref) => {
+        window._btTrays = window._btTrays || {};
+
+        if (!ref) {
+            return;
+        }
+
+        this.id = ref.id;
+        this.tray = ref;
+
+        window._btTrays[ref.id] = ref;
+    }
+
+    get className() {
+        const {
+            className,
+            namespace
+        } = this.props;
+
+        return [
+            className,
+            namespace
+        ].reduce((className, current) => current ? `${className} ${current}` : className, 'butter-toast');
     }
 
     render() {
-        if (this.props.renderInContext) {
-            const className = `${this.className}${this.theme}`;
+        const {
+            renderInContext,
+            timeout,
+            spacing,
+            namespace,
+            position
+        } = this.props;
+
+        if (renderInContext) {
 
             return (
-                <aside className={className}>
-                    <Tray ref={(tray) => this._tray = tray} {...this.config}/>
+                <aside className={this.className}>
+                    <Tray ref={this.createTrayRef}
+                        position={position}
+                        namespace={namespace}
+                        spacing={spacing}
+                        timeout={timeout}/>
                 </aside>
             );
         } else {
@@ -79,7 +129,26 @@ class ButterToast extends Component {
 }
 
 ButterToast.propTypes = {
-    renderInContext: PropTypes.bool
+    renderInContext: PropTypes.bool,
+    className: PropTypes.string,
+    namespace: PropTypes.string,
+    position: PropTypes.shape({
+        vertical: PropTypes.oneOf([POS_TOP, POS_BOTTOM]),
+        horizontal: PropTypes.oneOf([POS_LEFT, POS_RIGHT, POS_CENTER])
+    }),
+    timout: PropTypes.number,
+    spacing: PropTypes.number
+};
+
+ButterToast.defaultProps = {
+    className: '',
+    namespace: '',
+    position: {
+        vertical: POS_TOP,
+        horizontal: POS_RIGHT
+    },
+    timeout: 6000,
+    spacing: 10
 };
 
 export default ButterToast;
