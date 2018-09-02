@@ -1,7 +1,7 @@
 ![ButterToast](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/butterbot.png)
 # Butter Toast
 
-![ButterToast](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/crisp-blue.gif)
+![ButterToast](https://raw.githubusercontent.com/ealush/butter-toast/master/assets/crisp-purple.gif)
 
 Butter Toast is a toast notification system for React apps that puts an emphasis on ease of use, customizability and butter-smooth transitions.
 
