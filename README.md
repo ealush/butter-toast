@@ -37,7 +37,7 @@ V3 is a near-complete re-write of butter-toast. It brings with it a simpler API 
     * [Crunch](#crunch)
     * [Slim](#slim)
 
-## Feaatures
+## Features
 * Any component can be a toast. You can use whatever you like.
 * Rendering the toast-notifications globally right under body to prevent stacking-context collision.
 * Rendering the toast notifications in-context, for positioning relative to parent component.
