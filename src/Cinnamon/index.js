@@ -1,3 +1,5 @@
-export { default as Crunch } from './Crunch';
-export { default as Crisp } from './Crisp';
-export { default as Slim } from './Slim';
+import Crunch from './Crunch';
+import Crisp from './Crisp';
+import Slim from './Slim';
+
+export default { Crunch, Crisp, Slim };

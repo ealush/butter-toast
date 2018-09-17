@@ -8,10 +8,9 @@
     align-items: center;
 }
 
-#root > div > button  {
+#root button.dismiss-all  {
     padding: 5px 10px;
     outline: none;
-    display: none;
 }
 
 html, body {

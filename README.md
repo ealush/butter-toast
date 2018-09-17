@@ -7,6 +7,37 @@ Butter Toast is a toast notification system for React apps that puts an emphasis
 
 Butter Toast comes with a few built-in styles which you can apply, and you can also use any component for creating the notifications.
 
+## Basic usage
+
+The following example code will show a toast whenever the `ClickMe` button gets clicked. You can read more about the functions and constants used in the docs below.
+
+You can try this example as a live demo [here](https://stackblitz.com/edit/react-hzeye5);
+
+```js
+import React, { Component } from 'react';
+import ButterToast, { Cinnamon, POS_BOTTOM, POS_RIGHT } from 'butter-toast';
+
+class App extends Component {
+
+    onClickMe() {
+        ButterToast.raise({
+            content: <Cinnamon.Crisp scheme={Cinnamon.Crisp.SCHEME_BLUE}
+                content={() => <div>You can put basically anything here.</div>}
+                title="ButterToast example"/>
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                This is a simple butter toast example. <button onClick={this.onClickMe.bind(this)}>ClickMe</button>
+                <ButterToast position={{vertical: POS_BOTTOM, horizontal: POS_RIGHT}}/>
+            </div>
+        )
+    }
+}
+```
+
 ## V3 update
 V3 is a near-complete re-write of butter-toast. It brings with it a simpler API and overall more stability (plus, better ie11 support), moreover - it better supports addign features in the future. **IT IS INCOMPATIBLE WITH V2**. If you are currently a happy V2 user, there is no need to rush for an upgrade - new features will only be added to V3, though.
 
