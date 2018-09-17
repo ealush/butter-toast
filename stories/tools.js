@@ -61,11 +61,22 @@ export function start({ kind, sticky = false, scheme, icon, dismissible = true }
         }
 
     };
-    // setTimeout(fire);
+
+    setTimeout(fire);
+    setTimeout(addDismissAll);
     interval = setInterval(fire, 2000);
     intervals.push(interval);
 }
 
-export const dismissAll = () => {
+function addDismissAll() {
+    const root = document.querySelector('#root');
+    root.innerHTML = `<button class='dismiss-all'>dismiss all</button>`;
+    const button = root.querySelector('.dismiss-all')
+    if (button) {
+        button.onclick = dismissAll;
+    }
+}
+
+const dismissAll = () => {
     window.dispatchEvent(new CustomEvent('ButterToast', {detail:{ dismissBy: 'all' }}));
 };

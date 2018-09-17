@@ -17,8 +17,10 @@ function Slim({ content, className, scheme, position = {}, toastId, dismiss, onC
     );
 }
 
+Slim.SCHEME_DARK = SCHEME_DARK;
+Slim.SCHEME_LIGHT = SCHEME_LIGHT;
+
 export default Slim;
-export { SCHEME_DARK, SCHEME_LIGHT };
 
 Slim.prototype = {
     children: PropTypes.node,

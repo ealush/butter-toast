@@ -17,8 +17,13 @@ function Crunch({ dismissible, title, content, icon, dismiss, toastId, scheme, o
     );
 }
 
+Crunch.SCHEME_GREY = SCHEME_GREY;
+Crunch.SCHEME_RED = SCHEME_RED;
+Crunch.SCHEME_ORANGE = SCHEME_ORANGE;
+Crunch.SCHEME_GREEN = SCHEME_GREEN;
+Crunch.SCHEME_BLUE = SCHEME_BLUE;
+
 export default Crunch;
-export { SCHEME_GREY, SCHEME_RED, SCHEME_ORANGE, SCHEME_GREEN, SCHEME_BLUE };
 
 Crunch.prototypes = {
     content: PropTypes.node,

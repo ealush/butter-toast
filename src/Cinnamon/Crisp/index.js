@@ -17,8 +17,14 @@ function Crisp({ dismissible, dismiss, icon, title, content, toastId, scheme, on
     );
 }
 
+Crisp.SCHEME_GREY = SCHEME_GREY;
+Crisp.SCHEME_RED = SCHEME_RED;
+Crisp.SCHEME_ORANGE = SCHEME_ORANGE;
+Crisp.SCHEME_PURPLE = SCHEME_PURPLE;
+Crisp.SCHEME_GREEN = SCHEME_GREEN;
+Crisp.SCHEME_BLUE = SCHEME_BLUE;
+
 export default Crisp;
-export { SCHEME_GREY, SCHEME_RED, SCHEME_ORANGE, SCHEME_PURPLE, SCHEME_GREEN, SCHEME_BLUE };
 
 Crisp.prototypes = {
     content: PropTypes.node,

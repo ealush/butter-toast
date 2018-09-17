@@ -11,7 +11,8 @@ module.exports = {
     output: {
         filename: '[name].js',
         libraryTarget: 'umd',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        globalObject: '((() => 0).constructor("return this"))()'
     },
     externals: {
         react: {
