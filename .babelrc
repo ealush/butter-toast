@@ -1,19 +1,18 @@
 {
     "presets": [
-        "react",
-        ["env", {
+        "@babel/preset-react",
+        ["@babel/preset-env", {
             "targets": {
                 "browsers": ["last 4 versions", "not ie <= 10"]
             },
             "modules": false
-        }],
-        "stage-3"
+        }]
     ],
     "env": {
         "test": {
             "presets": [
-                "react",
-                ["env", {
+                "@babel/preset-react",
+                ["@babel/preset-env", {
                     "targets": {
                         "node": "current"
                     }
@@ -22,7 +21,7 @@
         }
     },
     "plugins": [
-        "transform-class-properties",
-        "transform-runtime"
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-transform-runtime"
     ]
 }
