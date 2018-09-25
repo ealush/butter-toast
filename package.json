@@ -1,11 +1,12 @@
 {
   "name": "butter-toast",
-  "version": "3.0.4",
+  "version": "3.1.0",
   "description": "Smooth toast notifications for react apps",
   "main": "./dist/butter-toast.min.js",
   "scripts": {
-    "build": "npm run build-webpack",
-    "build-webpack": "webpack --config ./webpack.config.js",
+    "build": "npm run build:webpack && npm run build:external",
+    "build:external": "EXTERNAL=true npm run build:webpack",
+    "build:webpack": "webpack --config ./webpack.config.js",
     "test": "jest --config ./configuration/jest.config.js",
     "test:watch": "node_modules/.bin/jest --config ./configuration/jest.config.js --watchAll",
     "test:coverage": "jest --config ./configuration/jest.config.js --coverage",
@@ -16,18 +17,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fiverr/butter-toast.git"
+    "url": "git+https://github.com/ealush/butter-toast.git"
   },
-  "author": "Fiverr",
+  "author": "ealush",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/fiverr/butter-toast/issues"
+    "url": "https://github.com/ealush/butter-toast/issues"
   },
-  "homepage": "https://github.com/fiverr/butter-toast#readme",
+  "homepage": "https://github.com/ealush/butter-toast#readme",
   "dependencies": {
-    "@babel/runtime": "^7.0.0",
-    "polished": "^2.0.3",
-    "styled-components": "^3.4.9"
+    "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
     "react": "^16.4.1",
@@ -37,6 +36,7 @@
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.1.0",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@quickbaseoss/babel-plugin-styled-components-css-namespace": "^0.1.1",
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
@@ -48,6 +48,7 @@
     "babel-eslint": "^9.0.0",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.2",
+    "babel-plugin-styled-components": "^1.7.1",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "enzyme-to-json": "^3.3.4",
@@ -62,6 +63,8 @@
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "polished": "^2.0.3",
+    "styled-components": "^3.4.9",
     "react-test-renderer": "^16.5.2",
     "webpack": "^4.19.1",
     "webpack-cli": "^3.1.0"

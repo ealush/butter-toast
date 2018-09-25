@@ -22,6 +22,8 @@
     },
     "plugins": [
         "@babel/plugin-proposal-class-properties",
-        "@babel/plugin-transform-runtime"
+        "@babel/plugin-transform-runtime",
+        [ "@quickbaseoss/babel-plugin-styled-components-css-namespace", {"cssNamespace": "bt-toast"}],
+        "styled-components"
     ]
 }

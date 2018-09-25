@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Div, { SCHEME_GREY, SCHEME_RED, SCHEME_ORANGE, SCHEME_GREEN, SCHEME_BLUE } from './style';
 import { getRenderable } from '../../lib';
 
-function Crunch({ dismissible, title, content, icon, dismiss, toastId, scheme, onClick, trayPosition }) {
+function Crunch({ dismissible, className, title, content, icon, dismiss, toastId, scheme, onClick, trayPosition }) {
 
     return (
-        <Div hasIcon={!!icon} scheme={scheme} hasOnClick={!!onClick} dismissible={dismissible} trayPosition={trayPosition}>
+        <Div className={className} hasIcon={!!icon} scheme={scheme} hasOnClick={!!onClick} dismissible={dismissible} trayPosition={trayPosition}>
             {dismissible && <button onClick={dismiss} className="btn-dismiss">&times;</button>}
             <span onClick={onClick}>
                 { icon && <div className="bt-icon">{getRenderable(icon)}</div> }
