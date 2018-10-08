@@ -58,7 +58,7 @@
     "funnies": "^2.0.0",
     "greenkeeper-lockfile": "^1.15.0",
     "jest": "^23.6.0",
-    "jest-enzyme": "^6.0.2",
+    "jest-enzyme": "^7.0.0",
     "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
