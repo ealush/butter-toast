@@ -1,7 +1,17 @@
 {
   "name": "butter-toast",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "Smooth toast notifications for react apps",
+  "keywords": [
+    "React notifications",
+    "Toast notifications",
+    "React toast notifications",
+    "Smooth notifications",
+    "Toast",
+    "Notification",
+    "Alert",
+    "React"
+  ],
   "main": "./dist/butter-toast.min.js",
   "scripts": {
     "build": "npm run build:webpack && npm run build:external",
