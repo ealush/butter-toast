@@ -104,7 +104,7 @@ To use Butter Toast you first need to instantiate a notification tray. You do th
 |------|------|---------|----------|------------
 | `renderInContext` | `boolean` | `true` | Y | Determines whether the tray should be renderd relative to `body` or to its parent component.
 | `className` | `string` |  | Y | Adds a class to the tray for custom styling
-| `nameSpace` | `string` |  | Y | Scopes the tray under a namespace, useful when multiple trays are present on the page.
+| `namespace` | `string` |  | Y | Scopes the tray under a namespace, useful when multiple trays are present on the page.
 | `position` | `object` | `null` | `{ horizontal: 'POS_RIGHT', vertical: 'POS_TOP' }` | Y | Determines the location of the tray on the screen. When null is passed, no positioning will be applied.
 | `timeout` | `number` | `6000` | Y | The default time in ms for toasts in the tray. Can be overridden individually.
 | `spacing` | `number` | `10` | Y | The distance in pixels between each toast in the tray.
@@ -192,7 +192,7 @@ The `raise` method accepts an object containing the content of your toast, and c
 | Prop | Type | Default | Optional | Description
 |------|------|---------|----------|------------
 | `content` | `node` | ` ` | N | The actual content being rendered. Could be a react component, a function returning JSX or a string of text.
-| `nameSpace` | `string` |  | Y | The named trays to which the toast should apply
+| `namespace` | `string` |  | Y | The named trays to which the toast should apply
 | `timeout` | `number` | ` ` | Y | Overrides the tray's default timeout for the current toast.
 | `sticky` | `boolean` | `false` | Y | Makes the toast ignore its timeout and not dismiss until dismiss gets called on it.
 | `dismiss` | `function` | ` ` | Y | A custom dismiss function, passing it will require manually calling `dismiss`. The function will be passed down as a prop to `content`
