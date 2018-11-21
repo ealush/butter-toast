@@ -152,3 +152,11 @@ ButterToast.defaultProps = {
 };
 
 export default ButterToast;
+
+export {
+    POS_TOP,
+    POS_BOTTOM,
+    POS_LEFT,
+    POS_RIGHT,
+    POS_CENTER
+};
