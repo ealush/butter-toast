@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getRenderable } from '../lib';
 import { toastStyle } from './style';
-import { isSticky } from './helpers';
+import { isSticky, calcNextTimeout } from './helpers';
 
 class Toast extends Component {
 
@@ -30,13 +30,11 @@ class Toast extends Component {
             return;
         }
 
-        // if no `remaining`, just use the toast's timeout
-        const timeout = typeof this.remaining === 'number' ? this.remaining : toast.timeout;
-        const add = timeout < 200 ? 200 : 0;
+        const timeout = calcNextTimeout(this.remaining, toast.timeout);
 
         this.clearTimeout();
-        this.timeout = setTimeout(this.close, timeout + add);
-        this.ends = Date.now() + timeout + add;
+        this.timeout = setTimeout(this.close, timeout);
+        this.ends = Date.now() + timeout;
         this.remaining = undefined;
     }
 

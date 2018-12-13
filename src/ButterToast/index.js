@@ -96,10 +96,7 @@ class ButterToast extends Component {
             namespace
         } = this.props;
 
-        return [
-            className,
-            namespace
-        ].reduce((className, current) => current ? `${className} ${current}` : className, 'butter-toast');
+        return [className, namespace, 'butter-toast'].filter(Boolean).join(' ');
     }
 
     render() {
