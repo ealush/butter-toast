@@ -1,0 +1,1 @@
+export const isSticky = (toast = {}) => toast.sticky || toast.timeout === Infinity;

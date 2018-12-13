@@ -167,6 +167,33 @@ describe('Toast Component', () => {
                 expect(instance.remaining).toBe(remaining);
             });
         });
+
+        describe('toast timeout is `Infinity`', () => {
+            beforeEach(() => {
+                const toast = toastProps();
+                toast.toast.timeout = Infinity;
+                wrapper = mount(<Toast {...toast}/>);
+                instance = wrapper.instance();
+            });
+
+            test('this.timeout stays unchanged', () => {
+                const timeout = instance.timeout;
+                instance.startTimeout();
+                expect(instance.timeout).toBe(timeout);
+            });
+
+            test('this.ends stays unchanged', () => {
+                const ends = instance.ends;
+                instance.startTimeout();
+                expect(instance.ends).toBe(ends);
+            });
+
+            test('this.remaining stays unchanged', () => {
+                const remaining = instance.remaining;
+                instance.startTimeout();
+                expect(instance.remaining).toBe(remaining);
+            });
+        });
     });
 
     describe('clearTimeout', () => {

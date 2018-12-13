@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getRenderable } from '../lib';
 import { toastStyle } from './style';
-import classNames from 'classnames';
+import { isSticky } from './helpers';
 
 class Toast extends Component {
 
@@ -26,7 +26,7 @@ class Toast extends Component {
     startTimeout = () => {
         const { toast } = this.props;
 
-        if (toast.sticky) {
+        if (isSticky(toast)) {
             return;
         }
 
@@ -41,7 +41,7 @@ class Toast extends Component {
     }
 
     clearTimeout = () => {
-        if (this.props.toast.sticky) {
+        if (isSticky(this.props.toast)) {
             return;
         }
 

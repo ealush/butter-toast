@@ -193,7 +193,7 @@ The `raise` method accepts an object containing the content of your toast, and c
 |------|------|---------|----------|------------
 | `content` | `node` | ` ` | N | The actual content being rendered. Could be a react component, a function returning JSX or a string of text.
 | `namespace` | `string` |  | Y | The named trays to which the toast should apply
-| `timeout` | `number` | ` ` | Y | Overrides the tray's default timeout for the current toast.
+| `timeout` | `number` / `Infinity` | ` ` | Y | Overrides the tray's default timeout for the current toast. When `Infinity`, sets `sticky` to `true`.
 | `sticky` | `boolean` | `false` | Y | Makes the toast ignore its timeout and not dismiss until dismiss gets called on it.
 | `dismiss` | `function` | ` ` | Y | A custom dismiss function, passing it will require manually calling `dismiss`. The function will be passed down as a prop to `content`
 | `onClick` | `function` | ` ` | Y | onClick handler. The function will be passed down as a prop to `content`.
