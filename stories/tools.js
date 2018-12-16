@@ -64,7 +64,7 @@ export function start({ kind, sticky = false, scheme, icon, dismissible = true }
 
     setTimeout(fire);
     setTimeout(addDismissAll);
-    interval = setInterval(fire, 2000);
+    interval = setInterval(fire, 2500);
     intervals.push(interval);
 }
 

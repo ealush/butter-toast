@@ -1,6 +1,6 @@
 import ButterToast from './ButterToast';
 import Cinnamon from './Cinnamon';
-import { POS_TOP, POS_BOTTOM, POS_LEFT, POS_RIGHT, POS_CENTER } from './ButterToast/styles'
+import { POS_TOP, POS_BOTTOM, POS_LEFT, POS_RIGHT, POS_CENTER } from './ButterToast/constants'
 
 export default ButterToast;
 export {

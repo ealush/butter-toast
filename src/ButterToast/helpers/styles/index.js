@@ -1,8 +1,9 @@
-export const POS_TOP = 'POS_TOP';
-export const POS_BOTTOM = 'POS_BOTTOM';
-export const POS_LEFT = 'POS_LEFT';
-export const POS_RIGHT = 'POS_RIGHT';
-export const POS_CENTER = 'POS_CENTER';
+import {
+    POS_BOTTOM,
+    POS_CENTER,
+    POS_LEFT,
+    POS_RIGHT
+} from '../../constants';
 
 const styleRight = {
     right: 0
@@ -16,20 +17,12 @@ const styleCenter = {
     left: '50%'
 };
 
-const styleBottom = {
-    bottom: '10px'
-};
-
-const styleTop = {
-    top: '10px'
-};
-
 const styleBase = {
     position: 'fixed',
     zIndex: 99999
 };
 
-export default function styles(position = {}, spacing = 0) {
+const styles = (position = {}, spacing = 0) => {
 
     if (position === null) {
         return {};
@@ -44,3 +37,5 @@ export default function styles(position = {}, spacing = 0) {
         horizontal === POS_RIGHT ? styleRight : {}
     );
 }
+
+export default styles;

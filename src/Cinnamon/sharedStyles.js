@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { POS_BOTTOM } from '../ButterToast/styles';
+import { POS_BOTTOM } from '../ButterToast/constants';
 import {
     $grey_300,
     $grey_500

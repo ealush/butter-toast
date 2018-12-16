@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { generateId } from '../lib';
 import { Ul, Li } from './styles';
-import { POS_BOTTOM } from '../ButterToast/styles';
+import { POS_BOTTOM } from '../ButterToast/constants';
 import Toast from '../Toast';
-import { CUSTOM_EVENT_NAME } from '../ButterToast';
+import { CUSTOM_EVENT_NAME } from '../ButterToast/constants';
 import { ulStyle, liStyle } from './styles';
 
 class Tray extends Component {
 
     constructor(props) {
         super(props);
+        this.id = props.id || generateId('tray');
         this.onButterToast = this.onButterToast.bind(this);
     }
 
@@ -25,7 +26,6 @@ class Tray extends Component {
         window.removeEventListener(CUSTOM_EVENT_NAME, this.onButterToast);
     }
 
-    id = generateId('tray')
     toasts = {}
 
     onButterToast({detail} = {}) {

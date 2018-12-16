@@ -1,4 +1,4 @@
-import { POS_RIGHT, POS_CENTER, POS_TOP } from '../ButterToast/styles';
+import { POS_RIGHT, POS_CENTER, POS_TOP } from '../ButterToast/constants';
 
 const ulStyle = {
     position: 'relative',
