@@ -53,7 +53,7 @@
     "@fiverr/eslint-config-fiverr": "1.0.0",
     "@storybook/addon-actions": "^4.1.2",
     "@storybook/addons": "^4.1.2",
-    "@storybook/react": "^4.0.0-rc.1",
+    "@storybook/react": "^4.1.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
