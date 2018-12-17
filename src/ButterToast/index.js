@@ -2,8 +2,25 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { generateId } from '../lib';
-import {createContainer, renderAt, unmountTray, getClassName, createTrayRef, commandTrays} from './helpers';
-import {POS_TOP, POS_BOTTOM, POS_LEFT, POS_RIGHT, POS_CENTER, BUTTER_TOAST_NAMESPACE, METHOD_DISMISS, METHOD_DISMISS_ALL, METHOD_PUSH, METHOD_RAISE} from './constants';
+import { createContainer,
+    renderAt,
+    unmountTray,
+    getClassName,
+    createTrayRef,
+    commandTrays
+} from './helpers';
+import {
+    POS_TOP,
+    POS_BOTTOM,
+    POS_LEFT,
+    POS_RIGHT,
+    POS_CENTER,
+    BUTTER_TOAST_NAMESPACE,
+    METHOD_DISMISS,
+    METHOD_DISMISS_ALL,
+    METHOD_PUSH,
+    METHOD_RAISE
+} from './constants';
 import Tray from '../Tray';
 class ButterToast extends Component {
 
@@ -14,17 +31,19 @@ class ButterToast extends Component {
     }
 
     static show(payload = {}, trayId) {
+        let root;
         let enrichedPayload = payload;
-        if (!trayId) {
+
+        if (!trayId && !payload.namespace) {
             enrichedPayload = {...ButterToast.defaultProps, ...payload};
-            const [root, trayId] = createContainer(enriched);
+            [root, trayId] = createContainer(enrichedPayload);
         }
 
-        return ButterToast[METHOD_RAISE](payload, enrichedPayload);
+        return ButterToast[METHOD_RAISE](enrichedPayload, trayId);
     }
 
-    static dismiss(id) { commandTrays(METHOD_DISMISS, null, id); }
-    static dismissAll(id) { commandTrays(METHOD_DISMISS_ALL); }
+    static dismiss(id, trayId) { commandTrays(METHOD_DISMISS, trayId, id); }
+    static dismissAll(trayId) { commandTrays(METHOD_DISMISS_ALL, trayId); }
 
     [METHOD_RAISE] = (payload = {}) => {
         if (!this.id) {return;}
@@ -32,8 +51,8 @@ class ButterToast extends Component {
         return ButterToast[METHOD_RAISE](payload, this.id);
     }
 
-    [METHOD_DISMISS] = (id) => this.tray.push(id);
-    [METHOD_DISMISS_ALL] = () => this.tray.dismissAll();
+    [METHOD_DISMISS] = (id) => ButterToast.dismiss(id, this.id);
+    [METHOD_DISMISS_ALL] = () => ButterToast.dismissAll(this.id);
 
     componentDidMount() {
         if (this.props.renderInContext) {

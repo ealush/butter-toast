@@ -1,4 +1,4 @@
-export const BUTTER_TOAST_NAMESPACE = 'ButterToast';
+export const BUTTER_TOAST_NAMESPACE = '__ButterToast__';
 export const POS_TOP = 'POS_TOP';
 export const POS_BOTTOM = 'POS_BOTTOM';
 export const POS_LEFT = 'POS_LEFT';

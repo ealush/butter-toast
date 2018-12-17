@@ -8,7 +8,7 @@ const generateId = (position = {}, namespace = '') => (
     [BUTTER_TOAST_NAMESPACE, ...Object.values(position), namespace].filter(Boolean).join('_')
 );
 
-const createContainer = (options = {}) => {
+const createContainer = ({parentNode, ...options} = {}) => {
 
     const {
         position,
@@ -16,11 +16,14 @@ const createContainer = (options = {}) => {
         timeout,
         spacing,
         className,
-        parentNode = document.body,
         createTrayRef
     } = options;
 
     const id = generateId(position, namespace);
+    const customContext = !!parentNode;
+    const style = styles(position, spacing, customContext);
+
+    parentNode = parentNode || document.body;
 
     let container = parentNode.querySelector(`#${id}`);
 
@@ -36,7 +39,6 @@ const createContainer = (options = {}) => {
         );
     }
 
-    const style = styles(position, spacing);
     container.setAttribute('class', getClassName({className, namespace }));
     Object.assign(container.style, style);
 

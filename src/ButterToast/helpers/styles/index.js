@@ -17,20 +17,16 @@ const styleCenter = {
     left: '50%'
 };
 
-const styleBase = {
-    position: 'fixed',
-    zIndex: 99999
-};
-
-const styles = (position = {}, spacing = 0) => {
+const styles = (position = {}, spacing = 0, customContext) => {
 
     if (position === null) {
         return {};
     }
 
-    let { vertical, horizontal } = position;
+    let {vertical, horizontal} = position;
 
-    return Object.assign({}, styleBase,
+    return Object.assign({ zIndex: 99999 },
+        customContext ? { position: 'absolute' } : { position: 'fixed'},
         vertical === POS_BOTTOM ? {bottom: `${spacing}px`} : {top: `${spacing}px`},
         horizontal === POS_CENTER ? styleCenter : {},
         horizontal === POS_LEFT ? styleLeft : {},
