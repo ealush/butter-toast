@@ -34,7 +34,7 @@ class ButterToast extends Component {
         let root;
         let enrichedPayload = payload;
 
-        if (!trayId && !payload.namespace) {
+        if (!trayId) {
             enrichedPayload = {...ButterToast.config, ...payload};
             [root, trayId] = createContainer(enrichedPayload);
         }

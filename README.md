@@ -17,25 +17,22 @@ You can try this example as a live demo [here](https://stackblitz.com/edit/react
 import React, { Component } from 'react';
 import ButterToast, { Cinnamon, POS_BOTTOM, POS_RIGHT } from 'butter-toast';
 
-class App extends Component {
+// ...
+// this will create a tray in the `top-right` corner by default.
+ButterToast.show({
+    content: <Cinnamon.Crisp scheme={Cinnamon.Crisp.SCHEME_BLUE}
+        content={() => <div>You can put basically anything here.</div>}
+        title="ButterToast example"/>
+});
 
-    onClickMe() {
-        ButterToast.raise({
-            content: <Cinnamon.Crisp scheme={Cinnamon.Crisp.SCHEME_BLUE}
-                content={() => <div>You can put basically anything here.</div>}
-                title="ButterToast example"/>
-        });
+// to change the default position, you can:
+ButterToast.show({
+    content: () => <div>Hello!</div>,
+    position: {
+        vertical: POS_BOTTOM,
+        horizontal: POS_RIGHT
     }
-
-    render() {
-        return (
-            <div>
-                This is a simple butter toast example. <button onClick={this.onClickMe.bind(this)}>ClickMe</button>
-                <ButterToast position={{vertical: POS_BOTTOM, horizontal: POS_RIGHT}}/>
-            </div>
-        )
-    }
-}
+});
 ```
 
 ## V3 update
@@ -69,6 +66,7 @@ V3 is a near-complete re-write of butter-toast. It brings with it a simpler API 
     * [Slim](#slim)
 
 ## Features
+* Dynamically create a tray, without mounting it first just by calling `ButterToast.show`
 * Any component can be a toast. You can use whatever you like.
 * Rendering the toast-notifications globally right under body to prevent stacking-context collision.
 * Rendering the toast notifications in-context, for positioning relative to parent component.
