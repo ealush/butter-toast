@@ -1,6 +1,7 @@
 import React from 'react';
 import { action, configureActions } from '@storybook/addon-actions';
-import ButterToast, { Cinnamon } from '../src';
+import ButterToast, {Cinnamon} from '../src';
+import { commandTrays } from '../src/ButterToast/helpers';
 import Funnies from 'funnies';
 import { sample } from 'lodash';
 const funnies = new Funnies();
@@ -78,5 +79,5 @@ function addDismissAll() {
 }
 
 const dismissAll = () => {
-    window.dispatchEvent(new CustomEvent('ButterToast', {detail:{ dismissBy: 'all' }}));
+    commandTrays('dismissAll');
 };

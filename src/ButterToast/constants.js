@@ -4,3 +4,7 @@ export const POS_BOTTOM = 'POS_BOTTOM';
 export const POS_LEFT = 'POS_LEFT';
 export const POS_RIGHT = 'POS_RIGHT';
 export const POS_CENTER = 'POS_CENTER';
+export const METHOD_DISMISS = 'dismiss';
+export const METHOD_DISMISS_ALL = 'dismissAll';
+export const METHOD_PUSH = 'push';
+export const METHOD_RAISE = 'raise';

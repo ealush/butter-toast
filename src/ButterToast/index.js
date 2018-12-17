@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { generateId } from '../lib';
 import {createContainer, renderAt, unmountTray, getClassName, createTrayRef, commandTrays} from './helpers';
-import {POS_TOP, POS_BOTTOM, POS_LEFT, POS_RIGHT, POS_CENTER, BUTTER_TOAST_NAMESPACE} from './constants';
+import {POS_TOP, POS_BOTTOM, POS_LEFT, POS_RIGHT, POS_CENTER, BUTTER_TOAST_NAMESPACE, METHOD_DISMISS, METHOD_DISMISS_ALL, METHOD_PUSH, METHOD_RAISE} from './constants';
 import Tray from '../Tray';
 class ButterToast extends Component {
 
-    static raise(payload = {}) {
+    static [METHOD_RAISE](payload = {}) {
         const id = generateId();
-        commandTrays('push', { id, ...payload });
+        commandTrays(METHOD_PUSH, { id, ...payload });
         return id;
     }
 
@@ -28,17 +28,17 @@ class ButterToast extends Component {
         return id;
     }
 
-    static dismiss(id) { commandTrays('dismiss', id); }
-    static dismissAll(id) { commandTrays('dismissAll'); }
+    static dismiss(id) { commandTrays(METHOD_DISMISS, id); }
+    static dismissAll(id) { commandTrays(METHOD_DISMISS_ALL); }
 
-    raise = (payload = {}) => {
+    [METHOD_RAISE] = (payload = {}) => {
         if (!this.id) {return;}
 
         return ButterToast.show(payload, this.id);
     }
 
-    dismiss = (id) => this.tray.push(id);
-    dismissAll = () => this.tray.dismissAll();
+    [METHOD_DISMISS] = (id) => this.tray.push(id);
+    [METHOD_DISMISS_ALL] = () => this.tray.dismissAll();
 
     componentDidMount() {
         if (this.props.renderInContext) {

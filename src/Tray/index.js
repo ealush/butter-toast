@@ -3,7 +3,7 @@ import { generateId } from '../lib';
 import { Ul, Li } from './styles';
 import { POS_BOTTOM } from '../ButterToast/constants';
 import Toast from '../Toast';
-import { BUTTER_TOAST_NAMESPACE } from '../ButterToast/constants';
+import { BUTTER_TOAST_NAMESPACE, METHOD_DISMISS, METHOD_DISMISS_ALL, METHOD_PUSH } from '../ButterToast/constants';
 import { ulStyle, liStyle } from './styles';
 
 class Tray extends Component {
@@ -32,7 +32,7 @@ class Tray extends Component {
         this.toasts[id] = ref;
     }
 
-    push = (payload = {}) => {
+    [METHOD_PUSH] = (payload = {}) => {
 
         if (payload.namespace && payload.namespace !== this.props.namespace) {
             return;
@@ -57,13 +57,13 @@ class Tray extends Component {
         });
     }
 
-    dismiss = (id) => {
+    [METHOD_DISMISS] = (id) => {
         if (this.toasts[id] && this.toasts[id].close) {
             this.toasts[id].close();
         }
     }
 
-    dismissAll = () => {
+    [METHOD_DISMISS_ALL] = () => {
         for (const toast in this.toasts) {
             this.dismiss(toast);
         }
