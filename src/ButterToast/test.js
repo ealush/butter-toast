@@ -52,7 +52,7 @@ describe('<ButterToast/>', () => {
                 });
 
                 it('Should match top-right inline style', () => {
-                    expect(tray.getAttribute('style')).toBe('position: fixed; z-index: 99999; top: 10px; right: 0px;');
+                    expect(tray.getAttribute('style')).toBe('z-index: 99999; position: fixed; top: 10px; right: 0px;');
                 });
             });
 
@@ -69,7 +69,7 @@ describe('<ButterToast/>', () => {
                 });
 
                 it('Should match top-center inline style', () => {
-                    expect(tray.getAttribute('style')).toBe('position: fixed; z-index: 99999; top: 10px; left: 50%;');
+                    expect(tray.getAttribute('style')).toBe('z-index: 99999; position: fixed; top: 10px; left: 50%;');
                 });
             });
 
@@ -86,7 +86,7 @@ describe('<ButterToast/>', () => {
                 });
 
                 it('Should match top-right inline style', () => {
-                    expect(tray.getAttribute('style')).toBe('position: fixed; z-index: 99999; top: 10px; right: 0px;');
+                    expect(tray.getAttribute('style')).toBe('z-index: 99999; position: fixed; top: 10px; right: 0px;');
                 });
             });
 
@@ -103,7 +103,7 @@ describe('<ButterToast/>', () => {
                 });
 
                 it('Should match top-left inline style', () => {
-                    expect(tray.getAttribute('style')).toBe('position: fixed; z-index: 99999; top: 10px; left: 0px;');
+                    expect(tray.getAttribute('style')).toBe('z-index: 99999; position: fixed; top: 10px; left: 0px;');
                 });
             });
 
@@ -120,7 +120,7 @@ describe('<ButterToast/>', () => {
                 });
 
                 it('Should match top-center inline style', () => {
-                    expect(tray.getAttribute('style')).toBe('position: fixed; z-index: 99999; bottom: 10px; left: 50%;');
+                    expect(tray.getAttribute('style')).toBe('z-index: 99999; position: fixed; bottom: 10px; left: 50%;');
                 });
             });
 
@@ -137,7 +137,7 @@ describe('<ButterToast/>', () => {
                 });
 
                 it('Should match top-right inline style', () => {
-                    expect(tray.getAttribute('style')).toBe('position: fixed; z-index: 99999; bottom: 10px; right: 0px;');
+                    expect(tray.getAttribute('style')).toBe('z-index: 99999; position: fixed; bottom: 10px; right: 0px;');
                 });
             });
 
@@ -154,7 +154,7 @@ describe('<ButterToast/>', () => {
                 });
 
                 it('Should match top-left inline style', () => {
-                    expect(tray.getAttribute('style')).toBe('position: fixed; z-index: 99999; bottom: 10px; left: 0px;');
+                    expect(tray.getAttribute('style')).toBe('z-index: 99999; position: fixed; bottom: 10px; left: 0px;');
                 });
             });
         });

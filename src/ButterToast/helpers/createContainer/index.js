@@ -1,4 +1,3 @@
-
 import renderAt from '../renderAt';
 import getClassName from '../getClassName';
 import {BUTTER_TOAST_NAMESPACE} from '../../constants';
