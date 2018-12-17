@@ -1,10 +1,11 @@
 
 import renderAt from '../renderAt';
 import getClassName from '../getClassName';
+import {BUTTER_TOAST_NAMESPACE} from '../../constants';
 import styles from '../styles';
 
 const generateId = (position = {}, namespace = '') => (
-    ['bt', ...Object.values(position), namespace].filter(Boolean).join('_')
+    [BUTTER_TOAST_NAMESPACE, ...Object.values(position), namespace].filter(Boolean).join('_')
 );
 
 const createContainer = (options = {}) => {

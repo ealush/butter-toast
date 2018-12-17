@@ -3,7 +3,7 @@ import { generateId } from '../lib';
 import { Ul, Li } from './styles';
 import { POS_BOTTOM } from '../ButterToast/constants';
 import Toast from '../Toast';
-import { CUSTOM_EVENT_NAME } from '../ButterToast/constants';
+import { BUTTER_TOAST_NAMESPACE } from '../ButterToast/constants';
 import { ulStyle, liStyle } from './styles';
 
 class Tray extends Component {
@@ -11,37 +11,13 @@ class Tray extends Component {
     constructor(props) {
         super(props);
         this.id = props.id || generateId('tray');
-        this.onButterToast = this.onButterToast.bind(this);
     }
 
     state = {
         toasts: []
     }
 
-    componentDidMount() {
-        window.addEventListener(CUSTOM_EVENT_NAME, this.onButterToast);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener(CUSTOM_EVENT_NAME, this.onButterToast);
-    }
-
     toasts = {}
-
-    onButterToast({detail} = {}) {
-
-        const { namespace, dismissBy, ...payload } = detail;
-
-        if (namespace && namespace !== this.props.namespace) {
-            return;
-        }
-
-        if (!dismissBy) {
-            return setTimeout(() => this.push(payload));
-        }
-
-        dismissBy === 'all' ? this.dismissAll() : this.dismiss(dismissBy);
-    }
 
     createToastRef = (id, ref) => {
         if (!id) {
@@ -57,6 +33,11 @@ class Tray extends Component {
     }
 
     push = (payload = {}) => {
+
+        if (payload.namespace && payload.namespace !== this.props.namespace) {
+            return;
+        }
+
         const timeout = this.props.timeout;
 
         this.setState((prevState) => {

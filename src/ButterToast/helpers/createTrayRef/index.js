@@ -1,11 +1,15 @@
+import { BUTTER_TOAST_NAMESPACE } from '../../constants';
+
 const createTrayRef = (ref, id) => {
-    window._btTrays = window._btTrays || {};
+    const btNamespace = Symbol.for(BUTTER_TOAST_NAMESPACE);
+
+    window[btNamespace] = window[btNamespace] || {};
 
     if (!ref) {
         return;
     }
 
-    window._btTrays[ref.id] = ref;
+    window[btNamespace][ref.id] = ref;
 }
 
 export default createTrayRef;

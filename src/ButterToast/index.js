@@ -2,32 +2,39 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { generateId } from '../lib';
-import {createContainer, renderAt, unmountTray, dispatchCustomEvent, getClassName, createTrayRef} from './helpers';
-import { POS_TOP, POS_BOTTOM, POS_LEFT, POS_RIGHT, POS_CENTER } from './constants';
+import {createContainer, renderAt, unmountTray, getClassName, createTrayRef, commandTrays} from './helpers';
+import {POS_TOP, POS_BOTTOM, POS_LEFT, POS_RIGHT, POS_CENTER, BUTTER_TOAST_NAMESPACE} from './constants';
 import Tray from '../Tray';
 class ButterToast extends Component {
 
     static raise(payload = {}) {
         const id = generateId();
-        dispatchCustomEvent({ id, ...payload });
+        commandTrays('push', { id, ...payload });
         return id;
     }
 
-    static show(payload = {}) {
-        const enriched = {...ButterToast.defaultProps, ...payload};
+    static show(payload = {}, trayId) {
+        const btNamespace = Symbol.for(BUTTER_TOAST_NAMESPACE);
+
         const id = generateId();
-        const [tray, trayId] = createContainer(enriched);
-        window._btTrays[trayId].push({id, ...enriched});
+        let enrichedPayload = {...payload, id};
+
+        if (!trayId) {
+            enrichedPayload = {...ButterToast.defaultProps, ...payload};
+            const [root, trayId] = createContainer(enriched);
+        }
+
+        window[btNamespace][trayId].push(enrichedPayload);
         return id;
     }
 
-    static dismiss(id) { dispatchCustomEvent({ dismissBy: id }); }
-    static dismissAll(id) { dispatchCustomEvent({ dismissBy: 'all' }); }
+    static dismiss(id) { commandTrays('dismiss', id); }
+    static dismissAll(id) { commandTrays('dismissAll'); }
 
     raise = (payload = {}) => {
-        const id = generateId();
-        this.tray.push({ id, ...payload });
-        return id;
+        if (!this.id) {return;}
+
+        return ButterToast.show(payload, this.id);
     }
 
     dismiss = (id) => this.tray.push(id);
@@ -38,13 +45,15 @@ class ButterToast extends Component {
             return;
         }
 
+        const btNamespace = Symbol.for(BUTTER_TOAST_NAMESPACE);
+
         [this.root, this.id] = createContainer({
             ...this.props
         });
     }
 
     componentWillUnmount() {
-        unmountTray({id: this.id, root: this.root});
+        unmountTray(this.root, this.id);
         delete this.root;
     }
 
