@@ -35,15 +35,18 @@ class ButterToast extends Component {
         let enrichedPayload = payload;
 
         if (!trayId && !payload.namespace) {
-            enrichedPayload = {...ButterToast.defaultProps, ...payload};
+            enrichedPayload = {...ButterToast.config, ...payload};
             [root, trayId] = createContainer(enrichedPayload);
         }
 
         return ButterToast[METHOD_RAISE](enrichedPayload, trayId);
     }
 
-    static dismiss(id, trayId) { commandTrays(METHOD_DISMISS, trayId, id); }
-    static dismissAll(trayId) { commandTrays(METHOD_DISMISS_ALL, trayId); }
+    static [METHOD_DISMISS](id, trayId) { commandTrays(METHOD_DISMISS, trayId, id); }
+    static [METHOD_DISMISS_ALL](trayId) {commandTrays(METHOD_DISMISS_ALL, trayId);}
+    static configure(config = {}) {
+        ButterToast.config = {...ButterToast.config, ...config};
+    }
 
     [METHOD_RAISE] = (payload = {}) => {
         if (!this.id) {return;}
@@ -51,8 +54,8 @@ class ButterToast extends Component {
         return ButterToast[METHOD_RAISE](payload, this.id);
     }
 
-    [METHOD_DISMISS] = (id) => ButterToast.dismiss(id, this.id);
-    [METHOD_DISMISS_ALL] = () => ButterToast.dismissAll(this.id);
+    [METHOD_DISMISS] = (id) => ButterToast[METHOD_DISMISS](id, this.id);
+    [METHOD_DISMISS_ALL] = () => ButterToast[METHOD_DISMISS_ALL](this.id);
 
     componentDidMount() {
         if (this.props.renderInContext) {
@@ -61,9 +64,7 @@ class ButterToast extends Component {
 
         const btNamespace = Symbol.for(BUTTER_TOAST_NAMESPACE);
 
-        [this.root, this.id] = createContainer({
-            ...this.props
-        });
+        [this.root, this.id] = createContainer({ ...ButterToast.config, ...this.props });
     }
 
     componentWillUnmount() {
@@ -72,6 +73,8 @@ class ButterToast extends Component {
     }
 
     render() {
+        const props = { ...ButterToast.config, ...this.props };
+
         const {
             renderInContext,
             timeout,
@@ -79,10 +82,9 @@ class ButterToast extends Component {
             namespace,
             position,
             className
-        } = this.props;
+        } = props;
 
         if (renderInContext) {
-
             return (
                 <aside className={getClassName({className, namespace})}>
                     <Tray ref={createTrayRef}
@@ -111,7 +113,7 @@ ButterToast.propTypes = {
     parentNode: PropTypes.instanceOf(Element)
 };
 
-ButterToast.defaultProps = {
+ButterToast.config = {
     className: '',
     namespace: '',
     position: {
