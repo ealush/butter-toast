@@ -1,14 +1,21 @@
 import {BUTTER_TOAST_NAMESPACE} from '../../constants';
 
-const commandTrays = (action, ...args) => {
-    const btNamespace = Symbol.for(BUTTER_TOAST_NAMESPACE);
+const trayDo = (action, trayId, ...args) => {
+    const currentTray = window[btNamespace][tray];
 
+    if (currentTray && currentTray[action]) {
+        currentTray[action](...args);
+    }
+}
+
+const commandTrays = (action, trayId, ...args) => {
     setTimeout(() => {
+        if (trayId) {
+            return trayDo(action, trayId, ...args);
+        }
+
         for (const tray in window[btNamespace]) {
-            const currentTray = window[btNamespace][tray];
-            if (window[btNamespace][tray] && window[btNamespace][tray][action]) {
-                window[btNamespace][tray][action](...args);
-            }
+            trayDo(action, tray, ...args);
         }
     });
 }

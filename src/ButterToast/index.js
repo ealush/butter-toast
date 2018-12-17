@@ -7,34 +7,29 @@ import {POS_TOP, POS_BOTTOM, POS_LEFT, POS_RIGHT, POS_CENTER, BUTTER_TOAST_NAMES
 import Tray from '../Tray';
 class ButterToast extends Component {
 
-    static [METHOD_RAISE](payload = {}) {
+    static [METHOD_RAISE](payload = {}, trayId) {
         const id = generateId();
-        commandTrays(METHOD_PUSH, { id, ...payload });
+        commandTrays(METHOD_PUSH, trayId, { id, ...payload });
         return id;
     }
 
     static show(payload = {}, trayId) {
-        const btNamespace = Symbol.for(BUTTER_TOAST_NAMESPACE);
-
-        const id = generateId();
-        let enrichedPayload = {...payload, id};
-
+        let enrichedPayload = payload;
         if (!trayId) {
             enrichedPayload = {...ButterToast.defaultProps, ...payload};
             const [root, trayId] = createContainer(enriched);
         }
 
-        window[btNamespace][trayId].push(enrichedPayload);
-        return id;
+        return ButterToast[METHOD_RAISE](payload, enrichedPayload);
     }
 
-    static dismiss(id) { commandTrays(METHOD_DISMISS, id); }
+    static dismiss(id) { commandTrays(METHOD_DISMISS, null, id); }
     static dismissAll(id) { commandTrays(METHOD_DISMISS_ALL); }
 
     [METHOD_RAISE] = (payload = {}) => {
         if (!this.id) {return;}
 
-        return ButterToast.show(payload, this.id);
+        return ButterToast[METHOD_RAISE](payload, this.id);
     }
 
     [METHOD_DISMISS] = (id) => this.tray.push(id);
