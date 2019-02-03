@@ -1,5 +1,6 @@
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
 let entry;
 
 const externals = {
@@ -48,19 +49,14 @@ module.exports = {
     },
     module: {
         rules: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
+            test: /\.(js|jsx)$/,
             use: {
-                loader: 'babel-loader'
+                loader: "babel-loader"
             }
         }]
     },
     externals,
     optimization: {
-        minimize: true,
-        minimizer: [new UglifyJsPlugin({
-            sourceMap: true,
-            include: /\.min\.js$/
-        })]
+        minimizer: [new TerserPlugin()],
     }
 };
