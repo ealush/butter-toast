@@ -49,13 +49,14 @@ class ButterToast extends Component {
             position,
             timeout,
             spacing,
-            namespace
+            namespace,
+            style
         } = this.props;
 
-        const style = styles(position, spacing);
+        const outputStyle = styles(position, spacing);
         this.root = document.createElement('aside');
         this.root.setAttribute('class', this.className);
-        Object.assign(this.root.style, style);
+        Object.assign(this.root.style, outputStyle, style);
         document.body.appendChild(this.root);
 
         ReactDOM.render(<Tray ref={this.createTrayRef}
@@ -105,13 +106,14 @@ class ButterToast extends Component {
             timeout,
             spacing,
             namespace,
-            position
+            position,
+            style
         } = this.props;
 
         if (renderInContext) {
 
             return (
-                <aside className={this.className}>
+                <aside className={this.className} style={style}>
                     <Tray ref={this.createTrayRef}
                         position={position}
                         namespace={namespace}

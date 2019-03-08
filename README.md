@@ -108,6 +108,7 @@ To use Butter Toast you first need to instantiate a notification tray. You do th
 | `position` | `object` | `null` | `{ horizontal: 'POS_RIGHT', vertical: 'POS_TOP' }` | Y | Determines the location of the tray on the screen. When null is passed, no positioning will be applied.
 | `timeout` | `number` | `6000` | Y | The default time in ms for toasts in the tray. Can be overridden individually.
 | `spacing` | `number` | `10` | Y | The distance in pixels between each toast in the tray.
+| `style` | `Object` | `undefined` | Y | Custom style object for the tray, eases custom positioning
 
 ```jsx
 import React, { Component } from 'react';
@@ -132,7 +133,7 @@ When using `renderInContext` you will not be able to use ButterToasts positionin
 To determine the direction in which the toasts stack, you can still use the `position.vertical` prop. Setting it to `POS_TOP` will make them stack from the top-down, and using `POS_BOTTOM` will make them stack from the bottom-up.
 
 ### Positioning the tray
-By default a tray can be aligned to any of the four corners of the screen, and to the top-center, and bottom-center. You can of course use any positioning you would like via css.
+By default a tray can be aligned to any of the four corners of the screen, and to the top-center, and bottom-center. You can of course use any positioning you would like via css, or a custom `style` prop to the tray.
 
 If you use `renderInContext`, no positioning will be applied to your tray - css will need to be used.
 
@@ -153,7 +154,7 @@ class MyComponent extends Component {
 
         const position = {
             vertical: POS_TOP,
-            horizontal: POS_BOTTOM
+            horizontal: POS_CENTER
         };
 
         return (
@@ -181,6 +182,17 @@ class MyComponent extends Component {
     }
 }
 ```
+
+### Using the `style` prop
+If you deal with a more complex scenario in which you need some more customized styling over existing - such as displaing your notifications below your sticky header - you can add a `style` property to your tray and it will override Butter-Toast's styles with yours.
+
+So for example:
+
+```jsx
+<ButterToast position={{vertical: POS_TOP,  horizontal: POS_CENTER}} style={{ top: '50px' }}>
+```
+
+Will override `POS_TOP`'s default `10px` with `50px`.
 
 ## Raising (emitting) a toast
 To emit a toast, you need to use Butter Toast's `raise` method.
