@@ -184,7 +184,7 @@ class MyComponent extends Component {
 ```
 
 ### Using the `style` prop
-If you deal with a more complex scenario in which you need some more customized styling over existing - such as displaing your notifications below your sticky header - you can add a `style` property to your tray and it will override Butter-Toast's styles with yours.
+If you deal with a more complex scenario in which you need some more customized styling over existing - such as displaiyng your notifications below your sticky header - you can add a `style` property to your tray and it will override Butter-Toast's styles with yours.
 
 So for example:
 
