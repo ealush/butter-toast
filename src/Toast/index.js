@@ -66,6 +66,7 @@ class Toast extends Component {
     }
 
     close = () => {
+        if (this.state.removed) return;
         const toastRef = this.toastRef;
         this.clearTimeout();
 
