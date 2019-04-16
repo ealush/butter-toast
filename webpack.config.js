@@ -45,7 +45,7 @@ module.exports = {
         filename: '[name].js',
         libraryTarget: 'umd',
         path: path.resolve(__dirname, 'dist'),
-        globalObject: '((() => 0).constructor("return this"))()'
+        globalObject: '((function f() { return 0; }).constructor("return this"))()'
     },
     module: {
         rules: [{
