@@ -48,7 +48,7 @@
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/plugin-transform-runtime": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-react": "^7.7.4",
     "@fiverr/eslint-config-fiverr": "^2.0.1",
     "@quickbaseoss/babel-plugin-styled-components-css-namespace": "^0.1.1",
     "@storybook/addon-actions": "^5.2.0",
