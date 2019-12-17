@@ -10,7 +10,7 @@ function Slim({ content, className, scheme, position = {}, toastId, dismiss, onC
     }
 
     return (
-        <Wrapper className={className} horizontal={position.horizontal} hasOnClick={!!onClick}>
+        <Wrapper className={`toast-slim ${className}`} horizontal={position.horizontal} hasOnClick={!!onClick}>
             <Content onClick={onClick}
                 scheme={scheme}>{getRenderable(content)}</Content>
         </Wrapper>
@@ -35,5 +35,6 @@ Slim.prototype = {
 
 Slim.defaultProps = {
     scheme: SCHEME_DARK,
-    content: null
+    content: null,
+    className: ''
 };

@@ -6,7 +6,7 @@ import { getRenderable } from '../../lib';
 function Crisp({ dismissible, className, dismiss, icon, title, content, toastId, scheme, onClick, trayPosition }) {
 
     return (
-        <Div className={className} hasIcon={!!icon} scheme={scheme} hasOnClick={!!onClick} dismissible={dismissible} trayPosition={trayPosition}>
+        <Div className={`toast-crisp ${className}`} hasIcon={!!icon} scheme={scheme} hasOnClick={!!onClick} dismissible={dismissible} trayPosition={trayPosition}>
             <span onClick={onClick}>
                 { icon && <div className="bt-icon">{getRenderable(icon)}</div> }
                 { title && <strong className="title">{getRenderable(title)}</strong> }
@@ -42,5 +42,6 @@ Crisp.defaultProps = {
     scheme: SCHEME_GREY,
     title: null,
     content: null,
-    icon: null
+    icon: null,
+    className: ''
 };
