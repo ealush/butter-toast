@@ -64,7 +64,7 @@
     "enzyme-to-json": "^3.3.5",
     "eslint": "^6.4.0",
     "eslint-plugin-class-property": "^1.1.0",
-    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react": "^7.18.3",
     "funnies": "^2.0.0",
     "greenkeeper-lockfile": "^1.15.0",
     "jest": "^24.0.0",
