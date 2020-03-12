@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/ealush/butter-toast#readme",
   "dependencies": {
-    "@babel/runtime": "^7.3.1"
+    "@babel/runtime": "^7.8.7"
   },
   "peerDependencies": {
     "react": "^16.4.1",
