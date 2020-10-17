@@ -11,7 +11,7 @@ Butter Toast comes with a few built-in styles which you can apply, and you can a
 
 The following example code will show a toast whenever the `ClickMe` button gets clicked. You can read more about the functions and constants used in the docs below.
 
-You can try this example as a live demo [here](https://stackblitz.com/edit/react-hzeye5);
+You can try this example as a live demo [here](https://stackblitz.com/edit/react-zll35d);
 
 ```js
 import React, { Component } from 'react';
